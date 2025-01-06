@@ -41,6 +41,8 @@ body {
     /* 4. Improve text rendering */
     -webkit-font-smoothing: antialiased;
     height: 100dvh;
+    background-color: var(--background);
+    color: var(--text);
 }
 
 /* 5. Improve media defaults */
