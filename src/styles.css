@@ -11,7 +11,7 @@ nav {
     border-radius: 0.5rem;
     width: 80px;
     overflow: hidden;
-    transition: width 750ms ease;
+    transition: width 300ms ease;
 }
 
 nav:hover {
