@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Jetbrains Mono";
+    src: url(./JetBrainsMono.ttf);
+}
+
 :root {
     --text: #000000;
     --background: #ffffff;
@@ -29,6 +34,7 @@ body {
     background-color: var(--background);
     color: var(--text);
     display: flex;
+    font-family: "Jetbrains Mono";
 }
 
 /* 5. Improve media defaults */
