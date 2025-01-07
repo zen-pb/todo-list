@@ -1,4 +1,4 @@
 # Talaan
 
 ## Attributions
-- **quill.svg**: Created by Kang panjai from thenounproject.com
+- **icon.svg**: Created by Kang panjai from thenounproject.com
