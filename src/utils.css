@@ -1,27 +1,12 @@
-@media (prefers-color-scheme: light) {
-    :root {
-        --text: #000000;
-        --background: #ffffff;
-        --high: #FF4C4C;
-        --medium: #FFD700;
-        --low: #FFA500;
-        --highlight-primary: #A3C8E7;
-        --highlight-secondary: #F5F5F5;
-    }
+:root {
+    --text: #000000;
+    --background: #ffffff;
+    --high: #FF4C4C;
+    --medium: #FFD700;
+    --low: #FFA500;
+    --highlight-primary: #A3C8E7;
+    --highlight-secondary: #F5F5F5;
 }
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text: #ffffff;
-        --background: #1E1E1E;
-        --high: #B30000;
-        --medium: #FFD900;
-        --low: #FFA600;
-        --highlight-primary: #183E5D;
-        --highlight-secondary: #3D3D3D;
-    }
-}
-
 
 /* 1. Use a more-intuitive box-sizing model */
 *,
