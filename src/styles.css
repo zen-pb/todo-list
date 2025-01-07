@@ -1,0 +1,73 @@
+header {
+    padding-top: 3rem;
+    padding-left: 4rem;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: var(--primary);
+    border-radius: 0.5rem;
+    width: 80px;
+    overflow: hidden;
+    transition: width 750ms ease;
+}
+
+nav:hover {
+    width: 256px;
+}
+
+nav button {
+    cursor: pointer;
+}
+
+nav button img {
+    width: 50px;
+    height: 50px;
+}
+
+nav button span {
+    padding-left: 0.85rem;
+    min-width: 103px;
+    text-align: left;
+}
+
+nav hr {
+    width: 99%;
+    margin-inline: auto;
+    border: 1px solid var(--secondary);
+}
+
+nav .active {
+    background-color: var(--secondary);
+}
+
+.nav-item {
+    width: 100%;
+    padding: 7px 0;
+    border-radius: 3.5px;
+}
+
+.nav-item:hover {
+    background-color: var(--secondary);
+}
+
+.nav-item button {
+    display: flex;
+    align-items: center;
+}
+
+.nav-main {
+    margin-bottom: 1.75rem;
+}
+
+.nav-other {
+    margin-top: 1rem;
+}
+
+.nav-main,
+.nav-other {
+    display: flex;
+    flex-direction: column;
+}
