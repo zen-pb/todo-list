@@ -8,6 +8,8 @@ export default function generateTaskForm() {
   const form = document.createElement("form");
 
   const formText = document.createElement("div");
+  formText.classList.add("form-text");
+
   const titleInput = document.createElement("input");
   titleInput.type = "text";
   titleInput.placeholder = "Task name";
@@ -20,6 +22,7 @@ export default function generateTaskForm() {
   formText.append(titleInput, descriptionInput);
 
   const formOptions = document.createElement("div");
+  formOptions.classList.add("form-options");
 
   const dueDateBTN = Button("Due date", dueDateSvg);
   const priorityBTN = Button("Priority", prioritySvg);
@@ -27,6 +30,7 @@ export default function generateTaskForm() {
   formOptions.append(dueDateBTN, priorityBTN);
 
   const formActions = document.createElement("div");
+  formActions.classList.add("form-action");
 
   const storageBTN = Button("Inbox", inboxSvg);
   const dropdown = document.createElement("img");
@@ -35,6 +39,8 @@ export default function generateTaskForm() {
   storageBTN.appendChild(dropdown);
 
   const actionsBTN = document.createElement("div");
+  actionsBTN.classList.add("actions-btn");
+
   const cancelBTN = Button("Cancel");
   const addTaskBTN = Button("Add task");
 
