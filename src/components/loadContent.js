@@ -1,4 +1,5 @@
-import addTaskButton from "./addTaskButton";
+import Button from "./Button";
+import addSvg from "../assets/images/add.svg";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -15,7 +16,7 @@ export default function loadContent(name = "Inbox") {
   const containerContent = document.createElement("div");
   containerContent.classList.add("container-content");
 
-  const addTaskBTN = addTaskButton();
+  const addTaskBTN = Button("Add task", addSvg);
 
   containerContent.append(addTaskBTN);
 
