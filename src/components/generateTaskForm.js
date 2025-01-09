@@ -6,6 +6,7 @@ import dropdownSvg from "../assets/images/dropdown.svg";
 
 export default function generateTaskForm() {
   const form = document.createElement("form");
+  form.classList.add("task-form");
 
   const formText = document.createElement("div");
   formText.classList.add("form-text");
