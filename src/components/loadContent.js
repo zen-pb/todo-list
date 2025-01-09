@@ -1,5 +1,6 @@
 import Button from "./Button";
 import addSvg from "../assets/images/add.svg";
+import generateTaskForm from "./generateTaskForm";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -18,9 +19,15 @@ export default function loadContent(name = "Inbox") {
 
   const addTaskBTN = Button("Add task", addSvg);
 
+  const taskForm = generateTaskForm();
+
+  addTaskBTN.addEventListener("click", () => {
+    containerContent.innerHTML = "";
+    containerContent.append(taskForm);
+  });
+
   containerContent.append(addTaskBTN);
 
   container.append(containerTitle, containerContent);
-
   content.append(container);
 }
