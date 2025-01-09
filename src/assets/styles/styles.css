@@ -113,12 +113,121 @@ nav .active {
     margin-inline: auto;
     text-align: left;
     cursor: pointer;
+    color: #666666;
 }
 
 #add-task span {
     margin-right: 1rem;
 }
 
-.container span img {
+#add-task span img {
     margin-bottom: 3px;
+}
+
+.task-form {
+    max-width: 800px;
+    width: 1100%;
+    margin-inline: auto;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    color: #666666;
+}
+
+.task-form button {
+    cursor: pointer;
+}
+
+.form-text {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding: 1rem;
+    padding-bottom: 0;
+}
+
+.form-text input {
+    border: none;
+    color: inherit;
+}
+
+.form-text input:focus {
+    outline: none;
+}
+
+.form-text input:first-of-type {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.form-text input:last-of-type {
+    font-size: 14px;
+}
+
+.form-options {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 12px;
+    padding-inline: 1rem;
+}
+
+.form-options button {
+    color: inherit;
+    font-size: 14px;
+    border: 1px solid #e6e6e6;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.form-options button span {
+    margin-right: 0.45rem;
+}
+
+.form-options span img {
+    margin-bottom: 2px;
+}
+
+.form-actions,
+.actions-btn {
+    display: flex;
+}
+
+.form-actions {
+    justify-content: space-between;
+    height: 49px;
+    border-top: 1px solid #e6e6e6;
+    font-size: 14px;
+    padding-inline: 1rem;
+}
+
+.form-actions button:first-of-type {
+    color: inherit;
+}
+
+.form-actions button span {
+    margin-right: 0.45rem;
+}
+
+.form-actions span img {
+    margin-bottom: 2px;
+}
+
+.actions-btn{
+    gap: 1rem;
+}
+
+.actions-btn button {
+    padding-inline: 12px;
+    border-radius: 6px;
+    height: 32px;
+    align-self: center;
+}
+
+.actions-btn button:first-of-type{
+    background-color: var(--primary);
+    color: black;
+}
+
+.actions-btn button:last-of-type{
+    background-color: var(--highlight-primary);
+    color: #fff !important;
 }
