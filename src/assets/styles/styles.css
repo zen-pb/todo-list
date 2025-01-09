@@ -90,3 +90,35 @@ nav .active {
 .list-content {
     min-height: 482px;
 }
+
+.container {
+    min-height: 310px;
+    padding: 5rem;
+}
+
+.container-title {
+    max-width: 810px;
+    margin-inline: auto;
+    padding: 1rem 0;
+}
+
+.container-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-content button {
+    max-width: 779px;
+    width: 100%;
+    margin-inline: auto;
+    text-align: left;
+    cursor: pointer;
+}
+
+.container button span {
+    margin-right: 1rem;
+}
+
+.container span img {
+    margin-bottom: 3px;
+}
