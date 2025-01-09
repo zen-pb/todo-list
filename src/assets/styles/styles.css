@@ -107,7 +107,7 @@ nav .active {
     flex-direction: column;
 }
 
-.container-content button {
+#add-task {
     max-width: 779px;
     width: 100%;
     margin-inline: auto;
@@ -115,7 +115,7 @@ nav .active {
     cursor: pointer;
 }
 
-.container button span {
+#add-task span {
     margin-right: 1rem;
 }
 
