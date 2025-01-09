@@ -31,7 +31,7 @@ export default function generateTaskForm() {
   formOptions.append(dueDateBTN, priorityBTN);
 
   const formActions = document.createElement("div");
-  formActions.classList.add("form-action");
+  formActions.classList.add("form-actions");
 
   const storageBTN = Button("Inbox", inboxSvg);
   const dropdown = document.createElement("img");
