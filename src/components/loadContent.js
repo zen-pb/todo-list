@@ -20,10 +20,17 @@ export default function loadContent(name = "Inbox") {
   const addTaskBTN = Button("Add task", addSvg);
 
   const taskForm = generateTaskForm();
+  const cancelBTN = taskForm.querySelector("button#cancel");
 
   addTaskBTN.addEventListener("click", () => {
     containerContent.innerHTML = "";
     containerContent.append(taskForm);
+  });
+
+  cancelBTN.addEventListener("click", () => {
+    containerContent.innerHTML = "";
+    taskForm.reset();
+    containerContent.append(addTaskBTN);
   });
 
   containerContent.append(addTaskBTN);
