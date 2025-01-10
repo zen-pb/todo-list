@@ -20,6 +20,7 @@ export default function loadContent(name = "Inbox") {
   const addTaskBTN = Button("Add task", addSvg);
 
   const taskForm = generateTaskForm();
+  const priorityBTN = taskForm.querySelector("button#priority");
   const cancelBTN = taskForm.querySelector("button#cancel");
 
   addTaskBTN.addEventListener("click", () => {
@@ -32,6 +33,8 @@ export default function loadContent(name = "Inbox") {
     taskForm.reset();
     containerContent.append(addTaskBTN);
   });
+
+  priorityBTN.addEventListener("click", () => {});
 
   containerContent.append(addTaskBTN);
 
