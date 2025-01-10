@@ -3,6 +3,10 @@ import dueDateSvg from "../assets/images/due-date.svg";
 import prioritySvg from "../assets/images/priority.svg";
 import inboxSvg from "../assets/images/inbox-dropdown.svg";
 import dropdownSvg from "../assets/images/dropdown.svg";
+import Dropdown from "./Dropdown";
+import highPriority from "../assets/images/high-priority.svg";
+import mediumPriority from "../assets/images/medium-priority.svg";
+import lowPriority from "../assets/images/low-priority.svg";
 
 export default function generateTaskForm() {
   const form = document.createElement("form");
@@ -26,9 +30,17 @@ export default function generateTaskForm() {
   formOptions.classList.add("form-options");
 
   const dueDateBTN = Button("Due date", dueDateSvg);
+
   const priorityBTN = Button("Priority", prioritySvg);
 
-  formOptions.append(dueDateBTN, priorityBTN);
+  const priorityList = [
+    Button("High priority", highPriority),
+    Button("Medium priority", mediumPriority),
+    Button("Low priority", lowPriority),
+  ];
+  const priorityDiv = Dropdown(priorityBTN, priorityList);
+
+  formOptions.append(dueDateBTN, priorityDiv);
 
   const formActions = document.createElement("div");
   formActions.classList.add("form-actions");
