@@ -7,6 +7,7 @@ import Dropdown from "./Dropdown";
 import highPriority from "../assets/images/high-priority.svg";
 import mediumPriority from "../assets/images/medium-priority.svg";
 import lowPriority from "../assets/images/low-priority.svg";
+import noPriority from "../assets/images/priority-none.svg";
 
 export default function generateTaskForm() {
   const form = document.createElement("form");
@@ -34,9 +35,10 @@ export default function generateTaskForm() {
   const priorityBTN = Button("Priority", prioritySvg);
 
   const priorityList = [
-    Button("High priority", highPriority),
-    Button("Medium priority", mediumPriority),
-    Button("Low priority", lowPriority),
+    Button("High", highPriority),
+    Button("Medium", mediumPriority),
+    Button("Low", lowPriority),
+    Button("None", noPriority)
   ];
   const priorityDiv = Dropdown(priorityBTN, priorityList);
 
