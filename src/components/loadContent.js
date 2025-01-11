@@ -34,7 +34,23 @@ export default function loadContent(name = "Inbox") {
     containerContent.append(addTaskBTN);
   });
 
-  priorityBTN.addEventListener("click", () => {});
+  priorityBTN.addEventListener("click", () => {
+    const dropdownContent = taskForm.querySelector(".priority-dropdown ul");
+    dropdownContent.classList.toggle("show");
+  });
+
+  window.onclick = function (event) {
+    if (!event.target.matches("button#priority")) {
+      var dropdowns = document.getElementsByClassName("dropdown-items");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains("show")) {
+          openDropdown.classList.remove("show");
+        }
+      }
+    }
+  };
 
   containerContent.append(addTaskBTN);
 
