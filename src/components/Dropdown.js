@@ -3,6 +3,7 @@ export default function Dropdown(button, list) {
   div.classList.add(`${button.id}-dropdown`);
 
   const ul = document.createElement("ul");
+  ul.classList.add("dropdown-items");
 
   list.forEach((item) => {
     const li = document.createElement("li");
