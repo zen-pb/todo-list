@@ -57,7 +57,7 @@ export default function generateTaskForm() {
   actionsBTN.classList.add("actions-btn");
 
   const cancelBTN = Button("Cancel");
-  const addTaskBTN = Button("Add task");
+  const addTaskBTN = Button("Add task", "", "submit");
 
   actionsBTN.append(cancelBTN, addTaskBTN);
 
