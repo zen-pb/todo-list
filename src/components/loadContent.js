@@ -20,6 +20,7 @@ export default function loadContent(name = "Inbox") {
   const addTaskBTN = Button("Add task", addSvg);
 
   const taskForm = generateTaskForm();
+  const dueDateBTN = taskForm.querySelector("button#due-date");
   const priorityBTN = taskForm.querySelector("button#priority");
   const priorityChoices = taskForm.querySelectorAll(".dropdown-items button");
 
@@ -36,9 +37,12 @@ export default function loadContent(name = "Inbox") {
     containerContent.append(addTaskBTN);
   });
 
+  dueDateBTN.addEventListener("click", () => {
+    dropdownContentHandler(dueDateBTN.id, taskForm);
+  });
+
   priorityBTN.addEventListener("click", () => {
-    const dropdownContent = taskForm.querySelector(".priority-dropdown ul");
-    dropdownContent.classList.toggle("show");
+    dropdownContentHandler(priorityBTN.id, taskForm);
   });
 
   priorityChoices.forEach((button) => {
@@ -47,12 +51,10 @@ export default function loadContent(name = "Inbox") {
     });
   });
 
-  window.onclick = function (event) {
-    if (!event.target.matches("button#priority")) {
-      var dropdowns = document.getElementsByClassName("dropdown-items");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
+  window.onclick = (event) => {
+    if (!event.target.closest(".dropdown-button")) {
+      const dropdowns = document.getElementsByClassName("dropdown-items");
+      for (let openDropdown of dropdowns) {
         if (openDropdown.classList.contains("show")) {
           openDropdown.classList.remove("show");
         }
@@ -64,4 +66,9 @@ export default function loadContent(name = "Inbox") {
 
   container.append(containerTitle, containerContent);
   content.append(container);
+}
+
+function dropdownContentHandler(buttonId, taskForm) {
+  const dropdownContent = taskForm.querySelector(`.${buttonId}-dropdown ul`);
+  dropdownContent.classList.toggle("show");
 }
