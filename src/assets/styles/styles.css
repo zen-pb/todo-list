@@ -233,6 +233,7 @@ nav .active {
 }
 
 .priority-dropdown {
+    width: 106px;
     position: relative;
     display: inline-block;
 }
