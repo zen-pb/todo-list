@@ -52,7 +52,10 @@ export default function loadContent(name = "Inbox") {
   });
 
   window.onclick = (event) => {
-    if (!event.target.closest(".dropdown-button")) {
+    if (
+      !event.target.closest(".dropdown-button") &&
+      !event.target.closest("input[type='date']")
+    ) {
       const dropdowns = document.getElementsByClassName("dropdown-items");
       for (let openDropdown of dropdowns) {
         if (openDropdown.classList.contains("show")) {
