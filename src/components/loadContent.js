@@ -21,6 +21,8 @@ export default function loadContent(name = "Inbox") {
 
   const taskForm = generateTaskForm();
   const priorityBTN = taskForm.querySelector("button#priority");
+  const priorityChoices = taskForm.querySelectorAll(".dropdown-items button");
+
   const cancelBTN = taskForm.querySelector("button#cancel");
 
   addTaskBTN.addEventListener("click", () => {
@@ -37,6 +39,12 @@ export default function loadContent(name = "Inbox") {
   priorityBTN.addEventListener("click", () => {
     const dropdownContent = taskForm.querySelector(".priority-dropdown ul");
     dropdownContent.classList.toggle("show");
+  });
+
+  priorityChoices.forEach((button) => {
+    button.addEventListener("click", () => {
+      priorityBTN.innerHTML = button.innerHTML;
+    });
   });
 
   window.onclick = function (event) {
