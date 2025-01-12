@@ -32,17 +32,22 @@ export default function generateTaskForm() {
 
   const dueDateBTN = Button("Due date", dueDateSvg);
 
+  const calendar = document.createElement("input");
+  calendar.type = "date";
+
+  const dateDiv = Dropdown(dueDateBTN, calendar);
+
   const priorityBTN = Button("Priority", prioritySvg);
 
   const priorityList = [
     Button("High", highPriority),
     Button("Medium", mediumPriority),
     Button("Low", lowPriority),
-    Button("None", noPriority)
+    Button("None", noPriority),
   ];
   const priorityDiv = Dropdown(priorityBTN, priorityList);
 
-  formOptions.append(dueDateBTN, priorityDiv);
+  formOptions.append(dateDiv, priorityDiv);
 
   const formActions = document.createElement("div");
   formActions.classList.add("form-actions");
