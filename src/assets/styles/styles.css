@@ -232,13 +232,33 @@ nav .active {
     color: #fff !important;
 }
 
+.due-date-dropdown,
 .priority-dropdown {
-    width: 106px;
     position: relative;
     display: inline-block;
 }
 
+.due-date-dropdown input[type="date"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.due-date-dropdown input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
 .dropdown-items {
+    font-size: 14px;
+    min-width: 106px;
     list-style: none;
     padding: 0;
     display: none;
