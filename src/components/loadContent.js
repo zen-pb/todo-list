@@ -1,6 +1,7 @@
 import Button from "./Button";
 import addSvg from "../assets/images/add.svg";
 import generateTaskForm from "./generateTaskForm";
+import { format, getYear } from "date-fns";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -21,6 +22,7 @@ export default function loadContent(name = "Inbox") {
 
   const taskForm = generateTaskForm();
   const dueDateBTN = taskForm.querySelector("button#due-date");
+  const dateInput = taskForm.querySelector("input[type='date']");
   const priorityBTN = taskForm.querySelector("button#priority");
   const priorityChoices = taskForm.querySelectorAll(".dropdown-items button");
 
@@ -38,7 +40,11 @@ export default function loadContent(name = "Inbox") {
   });
 
   dueDateBTN.addEventListener("click", () => {
-    dropdownContentHandler(dueDateBTN.id, taskForm);
+    dateInput.showPicker();
+  });
+
+  dateInput.addEventListener("change", () => {
+    formattedDateHandler(dateInput, dueDateBTN);
   });
 
   priorityBTN.addEventListener("click", () => {
@@ -80,4 +86,31 @@ function dropdownContentHandler(buttonId, taskForm) {
   });
 
   dropdownContent.classList.toggle("show");
+}
+
+function formattedDateHandler(dateInput, dueDateBTN) {
+  const dateValue = dateInput.value;
+  let formattedDate;
+
+  if (!dateValue) {
+    dueDateBTN.childNodes[1].textContent = "Due date";
+    return;
+  }
+
+  const selectedDate = new Date(dateValue);
+  const currentYear = getYear(new Date());
+  const selectedYear = getYear(selectedDate);
+
+  if (selectedYear === currentYear) {
+    formattedDate = format(selectedDate, "dd MMM");
+  } else {
+    formattedDate = format(selectedDate, "dd MMM yyyy");
+  }
+
+  dueDateBTN.childNodes[1].textContent = formattedDate;
+
+  const dropdown = dateInput.closest(".dropdown-items");
+  if (dropdown && dropdown.classList.contains("show")) {
+    dropdown.classList.remove("show");
+  }
 }
