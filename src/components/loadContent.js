@@ -73,5 +73,11 @@ export default function loadContent(name = "Inbox") {
 
 function dropdownContentHandler(buttonId, taskForm) {
   const dropdownContent = taskForm.querySelector(`.${buttonId}-dropdown ul`);
+
+  const openDropdowns = taskForm.querySelectorAll(".dropdown-items.show");
+  openDropdowns.forEach((dropdown) => {
+    if (dropdown !== dropdownContent) dropdown.classList.remove("show");
+  });
+
   dropdownContent.classList.toggle("show");
 }
