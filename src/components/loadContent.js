@@ -28,6 +28,8 @@ export default function loadContent(name = "Inbox") {
 
   const cancelBTN = taskForm.querySelector("button#cancel");
 
+  taskForm.addEventListener("submit", () => {});
+
   addTaskBTN.addEventListener("click", () => {
     containerContent.innerHTML = "";
     containerContent.append(taskForm);
