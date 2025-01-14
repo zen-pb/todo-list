@@ -18,6 +18,17 @@ export default function loadContent(name = "Inbox") {
   const containerContent = document.createElement("div");
   containerContent.classList.add("container-content");
 
+  const addTasksRoutes = ["Inbox", "Today", "This Week"];
+
+  if (addTasksRoutes.includes(containerTitle.textContent)) {
+    addTaskRouteHandler(containerContent);
+  }
+
+  container.append(containerTitle, containerContent);
+  content.append(container);
+}
+
+function addTaskRouteHandler(containerContent) {
   const addTaskBTN = Button("Add task", addSvg);
 
   const taskForm = generateTaskForm();
@@ -78,9 +89,6 @@ export default function loadContent(name = "Inbox") {
   };
 
   containerContent.append(addTaskBTN);
-
-  container.append(containerTitle, containerContent);
-  content.append(container);
 }
 
 function dropdownContentHandler(buttonId, taskForm) {
