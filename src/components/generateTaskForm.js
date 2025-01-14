@@ -61,6 +61,10 @@ export default function generateTaskForm() {
 
   storageBTN.appendChild(dropdown);
 
+  const storageDiv = document.createElement("div");
+  storageDiv.classList.add("storage-dropdown");
+  storageDiv.append(storageBTN);
+
   const actionsBTN = document.createElement("div");
   actionsBTN.classList.add("actions-btn");
 
@@ -69,7 +73,7 @@ export default function generateTaskForm() {
 
   actionsBTN.append(cancelBTN, addTaskBTN);
 
-  formActions.append(storageBTN, actionsBTN);
+  formActions.append(storageDiv, actionsBTN);
 
   form.append(formText, formOptions, formActions);
 
