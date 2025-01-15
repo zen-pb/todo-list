@@ -24,18 +24,19 @@ export default function generateNewProjectModal() {
 
   titleDiv.append(title, closeBTN);
 
-  const line = document.createElement("hr");
-
   const inputDiv = document.createElement("div");
   inputDiv.classList.add("project-form-inputDiv");
 
   const label = document.createElement("label");
   label.for = "project-name";
+  label.textContent = "Name";
 
   const input = document.createElement("input");
   input.id = "project-name";
 
-  inputDiv.append(label, input);
+  const line = document.createElement("hr");
+
+  inputDiv.append(label, input, line);
 
   const btnDiv = document.createElement("div");
   btnDiv.classList.add("project-form-btnDiv");
@@ -45,7 +46,7 @@ export default function generateNewProjectModal() {
 
   btnDiv.append(cancelBTN, addProjectBTN);
 
-  form.append(titleDiv, line, inputDiv, btnDiv);
+  form.append(titleDiv, inputDiv, btnDiv);
 
   dialog.append(form);
 
