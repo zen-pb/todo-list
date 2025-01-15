@@ -107,7 +107,8 @@ nav .active {
     flex-direction: column;
 }
 
-#add-task {
+#add-task,
+#add-project {
     max-width: 779px;
     width: 100%;
     margin-inline: auto;
@@ -116,11 +117,13 @@ nav .active {
     color: #666666;
 }
 
-#add-task span {
+#add-task span,
+#add-project span {
     margin-right: 1rem;
 }
 
-#add-task span img {
+#add-task span img,
+#add-project span img {
     margin-bottom: 3px;
 }
 
