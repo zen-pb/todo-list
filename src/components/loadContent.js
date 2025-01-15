@@ -2,6 +2,7 @@ import Button from "./Button";
 import addSvg from "../assets/images/add.svg";
 import generateTaskForm from "./generateTaskForm";
 import { format, getYear } from "date-fns";
+import generateNewProjectModal from "./generateNewProjectModal";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -24,6 +25,9 @@ export default function loadContent(name = "Inbox") {
     addTaskRouteHandler(containerContent);
   }
 
+  if (containerTitle.textContent === "Projects") {
+    addProjectRouteHandler(containerContent);
+  }
   container.append(containerTitle, containerContent);
   content.append(container);
 }
@@ -89,6 +93,30 @@ function addTaskRouteHandler(containerContent) {
   };
 
   containerContent.append(addTaskBTN);
+}
+
+function addProjectRouteHandler(containerContent) {
+  const addProjectBTN = Button("Add project", addSvg);
+
+  const projectDialog = generateNewProjectModal();
+
+  addProjectBTN.addEventListener("click", () => {
+    projectDialog.showModal();
+  });
+
+  projectDialog.addEventListener("click", (e) => {
+    const dialogDimensions = projectDialog.getBoundingClientRect();
+    if (
+      e.clientX < dialogDimensions.left ||
+      e.clientX > dialogDimensions.right ||
+      e.clientY < dialogDimensions.top ||
+      e.clientY > dialogDimensions.bottom
+    ) {
+      projectDialog.close();
+    }
+  });
+
+  containerContent.append(addProjectBTN, projectDialog);
 }
 
 function dropdownContentHandler(buttonId, taskForm) {
