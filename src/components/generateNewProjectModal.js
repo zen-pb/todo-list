@@ -14,9 +14,15 @@ export default function generateNewProjectModal() {
   const title = document.createElement("h1");
   title.textContent = "Add project";
 
-  const closeBTN = Button(null, closeSVG);
+  const closeBTN = document.createElement("button");
+  closeBTN.type = "button";
 
-  titleDiv.appendChild(title, closeBTN);
+  const img = document.createElement("img");
+  img.src = closeSVG;
+
+  closeBTN.append(img);
+
+  titleDiv.append(title, closeBTN);
 
   const line = document.createElement("hr");
 
