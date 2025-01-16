@@ -99,6 +99,9 @@ function addProjectRouteHandler(containerContent) {
   const addProjectBTN = Button("Add project", addSvg);
 
   const projectDialog = generateNewProjectModal();
+  const closeBTN = projectDialog.querySelector("button#close");
+
+  const cancelBTN = projectDialog.querySelector("button#cancel");
 
   addProjectBTN.addEventListener("click", () => {
     projectDialog.showModal();
@@ -114,6 +117,14 @@ function addProjectRouteHandler(containerContent) {
     ) {
       projectDialog.close();
     }
+  });
+
+  closeBTN.addEventListener("click", () => {
+    projectDialog.close();
+  });
+
+  cancelBTN.addEventListener("click", () => {
+    projectDialog.close();
   });
 
   containerContent.append(addProjectBTN, projectDialog);
