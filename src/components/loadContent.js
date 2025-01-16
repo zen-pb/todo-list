@@ -148,9 +148,34 @@ function addNoteRouteHandler(containerContent) {
 
   const noteForm = generateNoteForm();
 
+  const closeBTN = noteForm.querySelector("button#close");
+
   addNoteBTN.addEventListener("click", () => {
     containerContent.innerHTML = "";
     containerContent.append(noteForm);
+  });
+
+  closeBTN.addEventListener("click", () => {
+    containerContent.innerHTML = "";
+    noteForm.reset();
+    containerContent.append(addNoteBTN);
+  });
+
+  noteForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formInputs = noteForm.querySelectorAll("input");
+    let isEmpty = true;
+
+    formInputs.forEach((input) => {
+      if (input.value.trim() !== "") {
+        isEmpty = false;
+      }
+    });
+
+    if (isEmpty) return;
+
+    const formData = new FormData(noteForm);
   });
 
   containerContent.append(addNoteBTN);
