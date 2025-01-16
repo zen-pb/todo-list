@@ -101,6 +101,8 @@ function addProjectRouteHandler(containerContent) {
   const projectDialog = generateNewProjectModal();
   const closeBTN = projectDialog.querySelector("button#close");
 
+  const projectForm = projectDialog.querySelector("form");
+
   const cancelBTN = projectDialog.querySelector("button#cancel");
 
   addProjectBTN.addEventListener("click", () => {
@@ -121,6 +123,12 @@ function addProjectRouteHandler(containerContent) {
 
   closeBTN.addEventListener("click", () => {
     projectDialog.close();
+  });
+
+  projectForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(projectForm);
   });
 
   cancelBTN.addEventListener("click", () => {
