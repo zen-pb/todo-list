@@ -108,7 +108,8 @@ nav .active {
 }
 
 #add-task,
-#add-project {
+#add-project,
+#add-note {
     max-width: 779px;
     width: 100%;
     margin-inline: auto;
@@ -118,16 +119,19 @@ nav .active {
 }
 
 #add-task span,
-#add-project span {
+#add-project span,
+#add-note span {
     margin-right: 1rem;
 }
 
 #add-task span img,
-#add-project span img {
+#add-project span img,
+#add-note span img {
     margin-bottom: 3px;
 }
 
-.task-form {
+.task-form,
+.note-form {
     max-width: 800px;
     width: 1100%;
     margin-inline: auto;
@@ -376,3 +380,20 @@ dialog hr {
     justify-content: flex-end;
     gap: 10px;
 }
+
+.note-form {
+    width: 600px;
+}
+
+.note-form .actions-btn {
+    justify-content: flex-end;
+    padding: 4px 1rem;
+    padding-top: 0;
+}
+
+.note-form button[type="submit"]{
+    background-color: white;
+    color: #666666 !important;
+    cursor: pointer;
+}
+
