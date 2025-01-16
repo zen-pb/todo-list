@@ -310,6 +310,10 @@ dialog {
     border: none;
 }
 
+dialog button {
+    cursor: pointer;
+}
+
 dialog[open] {
     position: fixed;
     top: 35%;
