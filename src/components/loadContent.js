@@ -3,6 +3,7 @@ import addSvg from "../assets/images/add.svg";
 import generateTaskForm from "./generateTaskForm";
 import { format, getYear } from "date-fns";
 import generateNewProjectModal from "./generateNewProjectModal";
+import generateNoteForm from "./generateNoteForm";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -27,6 +28,10 @@ export default function loadContent(name = "Inbox") {
 
   if (containerTitle.textContent === "Projects") {
     addProjectRouteHandler(containerContent);
+  }
+
+  if (containerTitle.textContent === "Notes") {
+    addNoteRouteHandler(containerContent);
   }
   container.append(containerTitle, containerContent);
   content.append(container);
@@ -136,6 +141,19 @@ function addProjectRouteHandler(containerContent) {
   });
 
   containerContent.append(addProjectBTN, projectDialog);
+}
+
+function addNoteRouteHandler(containerContent) {
+  const addNoteBTN = Button("Take a note...");
+
+  const noteForm = generateNoteForm();
+
+  addNoteBTN.addEventListener("click", () => {
+    containerContent.innerHTML = "";
+    containerContent.append(noteForm);
+  });
+
+  containerContent.append(addNoteBTN);
 }
 
 function dropdownContentHandler(buttonId, taskForm) {
