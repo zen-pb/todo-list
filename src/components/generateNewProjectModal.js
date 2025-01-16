@@ -16,6 +16,7 @@ export default function generateNewProjectModal() {
 
   const closeBTN = document.createElement("button");
   closeBTN.type = "button";
+  closeBTN.id = "close"
 
   const img = document.createElement("img");
   img.src = closeSVG;
