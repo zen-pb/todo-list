@@ -10,7 +10,6 @@ export default function generateNoteForm() {
   const titleInput = document.createElement("input");
   titleInput.type = "text";
   titleInput.placeholder = "Title";
-  titleInput.required = true;
 
   const descriptionInput = document.createElement("input");
   descriptionInput.type = "text";
@@ -21,7 +20,7 @@ export default function generateNoteForm() {
   const actionsBTN = document.createElement("div");
   actionsBTN.classList.add("actions-btn");
 
-  const closeBTN = Button("Close");
+  const closeBTN = Button("Close", "", "submit");
 
   actionsBTN.append(closeBTN);
 
