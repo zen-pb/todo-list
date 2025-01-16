@@ -144,7 +144,7 @@ function addProjectRouteHandler(containerContent) {
 }
 
 function addNoteRouteHandler(containerContent) {
-  const addNoteBTN = Button("Take a note...");
+  const addNoteBTN = Button("Add note", addSvg);
 
   const noteForm = generateNoteForm();
 
