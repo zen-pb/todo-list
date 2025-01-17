@@ -16,7 +16,7 @@ export default function generateNewProjectModal() {
 
   const closeBTN = document.createElement("button");
   closeBTN.type = "button";
-  closeBTN.id = "close"
+  closeBTN.id = "close";
 
   const img = document.createElement("img");
   img.src = closeSVG;
@@ -34,6 +34,7 @@ export default function generateNewProjectModal() {
 
   const input = document.createElement("input");
   input.id = "project-name";
+  input.name = "title";
 
   const line = document.createElement("hr");
 

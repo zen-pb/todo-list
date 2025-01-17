@@ -18,11 +18,13 @@ export default function generateTaskForm() {
 
   const titleInput = document.createElement("input");
   titleInput.type = "text";
+  titleInput.name = "title";
   titleInput.placeholder = "Task name";
   titleInput.required = true;
 
   const descriptionInput = document.createElement("input");
   descriptionInput.type = "text";
+  descriptionInput.name = "description";
   descriptionInput.placeholder = "Description";
 
   formText.append(titleInput, descriptionInput);
