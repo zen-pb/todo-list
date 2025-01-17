@@ -228,6 +228,8 @@ nav .active {
     border-radius: 6px;
     height: 32px;
     align-self: center;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 .actions-btn button:first-of-type,
@@ -390,10 +392,3 @@ dialog hr {
     padding: 4px 1rem;
     padding-top: 0;
 }
-
-.note-form button[type="submit"]{
-    background-color: white;
-    color: #666666 !important;
-    cursor: pointer;
-}
-
