@@ -9,10 +9,12 @@ export default function generateNoteForm() {
 
   const titleInput = document.createElement("input");
   titleInput.type = "text";
+  titleInput.name = "title";
   titleInput.placeholder = "Title";
 
   const descriptionInput = document.createElement("input");
   descriptionInput.type = "text";
+  descriptionInput.name = "description";
   descriptionInput.placeholder = "Take a note...";
 
   formText.append(titleInput, descriptionInput);
@@ -20,9 +22,11 @@ export default function generateNoteForm() {
   const actionsBTN = document.createElement("div");
   actionsBTN.classList.add("actions-btn");
 
-  const closeBTN = Button("Close", "", "submit");
+  const closeBTN = Button("Close");
 
-  actionsBTN.append(closeBTN);
+  const submitBTN = Button("Save", "", "submit");
+
+  actionsBTN.append(closeBTN, submitBTN);
 
   form.append(formText, actionsBTN);
 
