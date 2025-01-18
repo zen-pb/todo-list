@@ -1,3 +1,4 @@
+import Notes from "./Notes";
 import Project from "./Projects";
 
 export default class Storage {
@@ -7,7 +8,7 @@ export default class Storage {
     if (storageName == "projects") {
       storedItem = this.getStorage(storageName)
         ? this.getStorage(storageName)
-        : [new Project("Inbox")];
+        : [];
 
       storedItem.push(data);
     }
@@ -25,5 +26,9 @@ export default class Storage {
 
   static getStorage(storageName) {
     return JSON.parse(localStorage.getItem(storageName));
+  }
+
+  static generateData() {
+    this.setStorage("projects", new Project("Inbox"));
   }
 }
