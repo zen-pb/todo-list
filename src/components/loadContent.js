@@ -43,7 +43,7 @@ export default function loadContent(name = "Inbox") {
   }
 
   if (containerTitle.textContent === "Notes") {
-    addNoteRouteHandler(content, containerContent);
+    addNoteRouteHandler(containerContent);
   }
 
   const dialog = generateModal();
@@ -177,7 +177,7 @@ function addProjectRouteHandler(containerContent) {
   containerContent.append(addProjectBTN);
 }
 
-function addNoteRouteHandler(content, containerContent) {
+function addNoteRouteHandler(containerContent) {
   const addNoteBTN = Button("Add note", addSvg);
 
   const noteForm = generateNoteForm();
@@ -225,6 +225,15 @@ function addNoteRouteHandler(content, containerContent) {
     textareaReset();
     containerContent.innerHTML = "";
     containerContent.append(addNoteBTN);
+
+    const existingNoteContainer = document.querySelector(".notes-container");
+    console.log(existingNoteContainer)
+    if (existingNoteContainer) {
+      existingNoteContainer.remove();
+    }
+
+    const noteContainer = loadNotes();
+    document.getElementById("content").appendChild(noteContainer);
   });
 
   containerContent.append(addNoteBTN);
