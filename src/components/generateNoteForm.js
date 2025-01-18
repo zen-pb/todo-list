@@ -12,12 +12,12 @@ export default function generateNoteForm() {
   titleInput.name = "title";
   titleInput.placeholder = "Title";
 
-  const descriptionInput = document.createElement("input");
-  descriptionInput.type = "text";
-  descriptionInput.name = "description";
-  descriptionInput.placeholder = "Take a note...";
+  const contentInput = document.createElement("input");
+  contentInput.type = "text";
+  contentInput.name = "description";
+  contentInput.placeholder = "Take a note...";
 
-  formText.append(titleInput, descriptionInput);
+  formText.append(titleInput, contentInput);
 
   const actionsBTN = document.createElement("div");
   actionsBTN.classList.add("actions-btn");
