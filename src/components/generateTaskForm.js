@@ -10,6 +10,8 @@ import mediumPriority from "../assets/images/medium-priority.svg";
 import lowPriority from "../assets/images/low-priority.svg";
 import noPriority from "../assets/images/priority-none.svg";
 import Storage from "../classes/Storage";
+import addSvg from "../assets/images/add.svg";
+import { add } from "date-fns";
 
 export default function generateTaskForm() {
   const form = document.createElement("form");
@@ -100,5 +102,6 @@ function storageList() {
     }
   });
 
+  list.push(Button("Add new project", addSvg));
   return list;
 }
