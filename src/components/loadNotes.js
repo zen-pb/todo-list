@@ -4,7 +4,7 @@ export default function loadNotes() {
   const notes = Storage.getStorage("notes");
 
   const container = document.createElement("div");
-  container.classList.add("note-container")
+  container.classList.add("notes-container")
 
   notes.forEach((note) => {
     const card = document.createElement("div");
