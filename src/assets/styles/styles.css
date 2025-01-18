@@ -270,6 +270,10 @@ nav .active {
     cursor: pointer;
 }
 
+.storage-dropdown ul {
+    width: 200px;
+}
+
 .storage-dropdown li button {
     padding: 6px;
 }
