@@ -35,6 +35,7 @@ export default function generateNewProjectModal() {
   const input = document.createElement("input");
   input.id = "project-name";
   input.name = "title";
+  input.maxLength = "120";
 
   const line = document.createElement("hr");
 
