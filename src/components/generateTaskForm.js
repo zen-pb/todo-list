@@ -36,6 +36,7 @@ export default function generateTaskForm() {
 
   const calendar = document.createElement("input");
   calendar.type = "date";
+  calendar.name = "date";
 
   const dateDiv = document.createElement("div");
   dateDiv.classList.add("due-date-dropdown");
