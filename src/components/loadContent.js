@@ -11,6 +11,8 @@ import prioritySvg from "../assets/images/priority.svg";
 import dueDateSvg from "../assets/images/due-date.svg";
 
 export default function loadContent(name = "Inbox") {
+  generateData();
+
   const content = document.getElementById("content");
 
   content.innerHTML = "";
@@ -276,4 +278,10 @@ function isProjectExisting(projectName) {
   }
 
   return exists;
+}
+
+function generateData() {
+  if (localStorage.length === 0) {
+    Storage.generateData();
+  }
 }
