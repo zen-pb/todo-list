@@ -102,6 +102,6 @@ function storageList() {
     }
   });
 
-  list.push(Button("Add new project", addSvg));
+  list.push(Button("Add project", addSvg));
   return list;
 }
