@@ -143,6 +143,7 @@ function addProjectRouteHandler(containerContent) {
       e.clientY < dialogDimensions.top ||
       e.clientY > dialogDimensions.bottom
     ) {
+      projectForm.reset();
       projectDialog.close();
     }
   });
@@ -160,7 +161,10 @@ function addProjectRouteHandler(containerContent) {
     const formData = new FormData(projectForm);
     const dataObject = Object.fromEntries(formData);
 
+    if (isProjectExisting(dataObject.title)) return;
+
     const project = new Project(dataObject.title);
+
     Storage.setStorage("projects", project);
 
     projectForm.reset();
@@ -261,4 +265,15 @@ function formInputChecker(form) {
   });
 
   return isEmpty;
+}
+
+function isProjectExisting(projectName) {
+  const projects = Storage.getStorage("projects");
+  let exists = false;
+
+  if (projects.find((project) => project[projectName])) {
+    exists = true;
+  }
+
+  return exists;
 }
