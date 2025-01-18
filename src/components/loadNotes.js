@@ -23,7 +23,7 @@ export default function loadNotes() {
     contentsDiv.classList.add("note-card-contentsDiv");
 
     const content = document.createElement("p");
-    content.classList.add("note-card-content");
+    content.classList.add("note-card-contents");
     content.textContent = note.content;
 
     contentsDiv.append(content);
