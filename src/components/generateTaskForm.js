@@ -2,16 +2,15 @@ import Button from "./Button";
 import dueDateSvg from "../assets/images/due-date.svg";
 import prioritySvg from "../assets/images/priority.svg";
 import inboxSvg from "../assets/images/inbox-dropdown.svg";
-import projectSvg from "../assets/images/projects-dropdown.svg";
 import dropdownSvg from "../assets/images/dropdown.svg";
 import Dropdown from "./Dropdown";
 import highPriority from "../assets/images/high-priority.svg";
 import mediumPriority from "../assets/images/medium-priority.svg";
 import lowPriority from "../assets/images/low-priority.svg";
 import noPriority from "../assets/images/priority-none.svg";
-import Storage from "../classes/Storage";
-import addSvg from "../assets/images/add.svg";
-import { add } from "date-fns";
+
+
+import storageList from "./storageList";
 
 export default function generateTaskForm() {
   const form = document.createElement("form");
@@ -85,23 +84,4 @@ export default function generateTaskForm() {
   form.append(formText, formOptions, formActions);
 
   return form;
-}
-
-function storageList() {
-  const data = Storage.getStorage("projects");
-
-  const projectNames = data.map((name) => Object.keys(name)[0]);
-
-  let list = [];
-
-  projectNames.forEach((name) => {
-    if (name === "Inbox") {
-      list.push(Button("Inbox", inboxSvg));
-    } else {
-      list.push(Button(name, projectSvg));
-    }
-  });
-
-  list.push(Button("Add project", addSvg));
-  return list;
 }
