@@ -15,7 +15,7 @@ export default function Dropdown(button, list) {
     });
   } else {
     const li = document.createElement("li");
-    li.appendChild(list);
+    li.appendChild(list[0]);
     ul.appendChild(li);
   }
 
