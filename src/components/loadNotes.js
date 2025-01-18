@@ -6,7 +6,7 @@ export default function loadNotes() {
   const container = document.createElement("div");
   container.classList.add("notes-container")
 
-  notes.forEach((note) => {
+  notes.reverse().forEach((note) => {
     const card = document.createElement("div");
     card.classList.add("note-card");
 
