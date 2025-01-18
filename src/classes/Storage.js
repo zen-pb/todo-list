@@ -33,6 +33,6 @@ export default class Storage {
 
   static generateData() {
     this.setStorage("projects", new Project("Inbox"));
-    this.setStorage("notes", new Notes("This is a note", "No, seriously. This is a note."));
+    this.setStorage("notes", new Notes("This is a note.", "No, seriously. This is a note."));
   }
 }
