@@ -143,6 +143,7 @@ function addProjectRouteHandler(containerContent) {
     const dataObject = Object.fromEntries(formData);
 
     const project = new Project(dataObject.title);
+    Storage.setStorage("projects", project);
 
     projectForm.reset();
     projectDialog.close();
