@@ -65,6 +65,11 @@ export default function loadContent(name = "Inbox") {
 
   container.append(containerTitle, containerContent);
   content.append(container, dialog);
+
+  if (containerTitle.textContent === "Notes") {
+    const noteContainer = loadNotes();
+    content.appendChild(noteContainer);
+  }
 }
 
 function addTaskRouteHandler(containerContent) {
