@@ -26,7 +26,7 @@ export default function loadNotes() {
     content.classList.add("note-card-content");
     content.textContent = note.content;
 
-    contentsDiv.append(details);
+    contentsDiv.append(content);
 
     card.append(titleDiv, contentsDiv);
     container.appendChild(card);
