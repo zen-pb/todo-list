@@ -13,14 +13,14 @@ import dropdownSvg from "../assets/images/dropdown.svg";
 import inboxSvg from "../assets/images/inbox-dropdown.svg";
 import storageList from "./storageList";
 import Dropdown from "./Dropdown";
+import loadNotes from "./loadNotes";
 
 export default function loadContent(name = "Inbox") {
-  generateData();
-  const dialog = generateModal();
-
   const content = document.getElementById("content");
 
   content.innerHTML = "";
+
+  loadData();
 
   const container = document.createElement("div");
   container.classList.add("container");
@@ -43,8 +43,10 @@ export default function loadContent(name = "Inbox") {
   }
 
   if (containerTitle.textContent === "Notes") {
-    addNoteRouteHandler(containerContent);
+    addNoteRouteHandler(content, containerContent);
   }
+
+  const dialog = generateModal();
 
   document.addEventListener(
     "click",
@@ -170,7 +172,7 @@ function addProjectRouteHandler(containerContent) {
   containerContent.append(addProjectBTN);
 }
 
-function addNoteRouteHandler(containerContent) {
+function addNoteRouteHandler(content, containerContent) {
   const addNoteBTN = Button("Add note", addSvg);
 
   const noteForm = generateNoteForm();
@@ -270,7 +272,7 @@ function isProjectExisting(projectName) {
   return projects.some((project) => project[projectName]);
 }
 
-function generateData() {
+function loadData() {
   if (localStorage.length === 0) {
     Storage.generateData();
   }
