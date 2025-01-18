@@ -11,9 +11,12 @@ import prioritySvg from "../assets/images/priority.svg";
 import dueDateSvg from "../assets/images/due-date.svg";
 import dropdownSvg from "../assets/images/dropdown.svg";
 import inboxSvg from "../assets/images/inbox-dropdown.svg";
+import storageList from "./storageList";
+import Dropdown from "./Dropdown";
 
 export default function loadContent(name = "Inbox") {
   generateData();
+  const dialog = generateModal();
 
   const content = document.getElementById("content");
 
@@ -42,8 +45,24 @@ export default function loadContent(name = "Inbox") {
   if (containerTitle.textContent === "Notes") {
     addNoteRouteHandler(containerContent);
   }
+
+  document.addEventListener(
+    "click",
+    (event) => {
+      if (!event.target.closest(".dropdown-button")) {
+        const dropdowns = document.getElementsByClassName("dropdown-items");
+        Array.from(dropdowns).forEach((dropdown) => {
+          if (dropdown.classList.contains("show")) {
+            dropdown.classList.remove("show");
+          }
+        });
+      }
+    },
+    true
+  );
+
   container.append(containerTitle, containerContent);
-  content.append(container);
+  content.append(container, dialog);
 }
 
 function addTaskRouteHandler(containerContent) {
@@ -75,13 +94,14 @@ function addTaskRouteHandler(containerContent) {
 
     Storage.setStorage("projects", dataObject);
 
-    taskForm.reset();
-    dueDateBTN.innerHTML = Button("Due date", dueDateSvg).innerHTML;
-    priorityBTN.innerHTML = Button("Priority", prioritySvg).innerHTML;
-    storageBTN.innerHTML = Button("Inbox", inboxSvg).innerHTML;
-    addDropdownSvg(storageBTN);
-    containerContent.innerHTML = "";
-    containerContent.append(addTaskBTN);
+    resetTaskForm(
+      taskForm,
+      dueDateBTN,
+      priorityBTN,
+      storageBTN,
+      containerContent,
+      addTaskBTN
+    );
   });
 
   addTaskBTN.addEventListener("click", () => {
@@ -90,13 +110,14 @@ function addTaskRouteHandler(containerContent) {
   });
 
   cancelBTN.addEventListener("click", () => {
-    taskForm.reset();
-    dueDateBTN.innerHTML = Button("Due date", dueDateSvg).innerHTML;
-    priorityBTN.innerHTML = Button("Priority", prioritySvg).innerHTML;
-    storageBTN.innerHTML = Button("Inbox", inboxSvg).innerHTML;
-    addDropdownSvg(storageBTN);
-    containerContent.innerHTML = "";
-    containerContent.append(addTaskBTN);
+    resetTaskForm(
+      taskForm,
+      dueDateBTN,
+      priorityBTN,
+      storageBTN,
+      containerContent,
+      addTaskBTN
+    );
   });
 
   dueDateBTN.addEventListener("click", () => {
@@ -123,23 +144,17 @@ function addTaskRouteHandler(containerContent) {
 
   storageChoices.forEach((button) => {
     button.addEventListener("click", () => {
-      storageBTN.innerHTML = button.innerHTML;
-      const dropdown = document.createElement("img");
-      dropdown.src = dropdownSvg;
-      storageBTN.appendChild(dropdown);
+      if (button.id !== "add-project") {
+        storageBTN.innerHTML = button.innerHTML;
+        const dropdown = document.createElement("img");
+        dropdown.src = dropdownSvg;
+        storageBTN.appendChild(dropdown);
+      } else {
+        const dialog = document.querySelector(".project-dialog");
+        dialog.showModal();
+      }
     });
   });
-
-  window.onclick = (event) => {
-    if (!event.target.closest(".dropdown-button")) {
-      const dropdowns = document.getElementsByClassName("dropdown-items");
-      for (let openDropdown of dropdowns) {
-        if (openDropdown.classList.contains("show")) {
-          openDropdown.classList.remove("show");
-        }
-      }
-    }
-  };
 
   containerContent.append(addTaskBTN);
 }
@@ -147,58 +162,12 @@ function addTaskRouteHandler(containerContent) {
 function addProjectRouteHandler(containerContent) {
   const addProjectBTN = Button("Add project", addSvg);
 
-  const projectDialog = generateNewProjectModal();
-  const closeBTN = projectDialog.querySelector("button#close");
-
-  const projectForm = projectDialog.querySelector("form");
-
-  const cancelBTN = projectDialog.querySelector("button#cancel");
-
   addProjectBTN.addEventListener("click", () => {
-    projectDialog.showModal();
+    const dialog = document.querySelector(".project-dialog");
+    dialog.showModal();
   });
 
-  projectDialog.addEventListener("click", (e) => {
-    const dialogDimensions = projectDialog.getBoundingClientRect();
-    if (
-      e.clientX < dialogDimensions.left ||
-      e.clientX > dialogDimensions.right ||
-      e.clientY < dialogDimensions.top ||
-      e.clientY > dialogDimensions.bottom
-    ) {
-      projectForm.reset();
-      projectDialog.close();
-    }
-  });
-
-  closeBTN.addEventListener("click", () => {
-    projectForm.reset();
-    projectDialog.close();
-  });
-
-  projectForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    if (formInputChecker(projectForm)) return;
-
-    const formData = new FormData(projectForm);
-    const dataObject = Object.fromEntries(formData);
-
-    if (isProjectExisting(dataObject.title)) return;
-
-    const project = new Project(dataObject.title);
-
-    Storage.setStorage("projects", project);
-
-    projectForm.reset();
-    projectDialog.close();
-  });
-
-  cancelBTN.addEventListener("click", () => {
-    projectDialog.close();
-  });
-
-  containerContent.append(addProjectBTN, projectDialog);
+  containerContent.append(addProjectBTN);
 }
 
 function addNoteRouteHandler(containerContent) {
@@ -278,27 +247,12 @@ function formattedDateHandler(dateInput, dueDateBTN) {
 }
 
 function formInputChecker(form) {
-  const formInputs = form.querySelectorAll("input");
-  let isEmpty = true;
-
-  formInputs.forEach((input) => {
-    if (input.value.trim() !== "") {
-      isEmpty = false;
-    }
-  });
-
-  return isEmpty;
+  const formInputs = form.querySelectorAll("input[required]");
+  return Array.from(formInputs).some((input) => input.value.trim() === "");
 }
-
 function isProjectExisting(projectName) {
   const projects = Storage.getStorage("projects");
-  let exists = false;
-
-  if (projects.find((project) => project[projectName])) {
-    exists = true;
-  }
-
-  return exists;
+  return projects.some((project) => project[projectName]);
 }
 
 function generateData() {
@@ -311,4 +265,117 @@ function addDropdownSvg(storageBTN) {
   const dropdown = document.createElement("img");
   dropdown.src = dropdownSvg;
   storageBTN.appendChild(dropdown);
+}
+
+function generateModal() {
+  const projectDialog = generateNewProjectModal();
+  const closeBTN = projectDialog.querySelector("button#close");
+
+  const projectForm = projectDialog.querySelector("form");
+
+  const cancelBTN = projectDialog.querySelector("button#cancel");
+
+  projectDialog.addEventListener("click", (e) => {
+    if (e.target.closest("form")) return;
+
+    const dialogDimensions = projectDialog.getBoundingClientRect();
+    if (
+      e.clientX < dialogDimensions.left ||
+      e.clientX > dialogDimensions.right ||
+      e.clientY < dialogDimensions.top ||
+      e.clientY > dialogDimensions.bottom
+    ) {
+      projectForm.reset();
+      projectDialog.close();
+    }
+  });
+
+  closeBTN.addEventListener("click", () => {
+    projectForm.reset();
+    projectDialog.close();
+  });
+
+  projectForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (formInputChecker(projectForm)) return;
+
+    const formData = new FormData(projectForm);
+    const dataObject = Object.fromEntries(formData);
+
+    if (isProjectExisting(dataObject.title)) return;
+
+    const project = new Project(dataObject.title);
+
+    Storage.setStorage("projects", project);
+
+    refreshList();
+    projectForm.reset();
+    projectDialog.close();
+  });
+
+  cancelBTN.addEventListener("click", () => {
+    projectDialog.close();
+  });
+
+  return projectDialog;
+}
+
+function refreshList() {
+  const storageDropdown = document.querySelector(".storage-dropdown");
+
+  if (storageDropdown) {
+    const currentStorageBTN = storageDropdown.querySelector("button#storage");
+    const list = storageList();
+    const form = storageDropdown.closest("form");
+
+    // Store the current button's text before updating
+    const currentStorageText = currentStorageBTN.textContent;
+
+    // Update the dropdown content
+    storageDropdown.innerHTML = Dropdown(currentStorageBTN, list).innerHTML;
+
+    // Get the new button and update its text if needed
+    const newStorageBTN = storageDropdown.querySelector("button#storage");
+    if (currentStorageText !== "Inbox") {
+      newStorageBTN.innerHTML = currentStorageText;
+      addDropdownSvg(newStorageBTN);
+    }
+
+    // Reattach click handler to the new button
+    newStorageBTN.addEventListener("click", () => {
+      dropdownContentHandler(newStorageBTN.id, form);
+    });
+
+    // Reattach click handlers to all storage choices
+    const storageChoices = storageDropdown.querySelectorAll("li button");
+    storageChoices.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (button.id !== "add-project") {
+          newStorageBTN.innerHTML = button.innerHTML;
+          addDropdownSvg(newStorageBTN);
+        } else {
+          const dialog = document.querySelector(".project-dialog");
+          dialog.showModal();
+        }
+      });
+    });
+  }
+}
+
+function resetTaskForm(
+  taskForm,
+  dueDateBTN,
+  priorityBTN,
+  storageBTN,
+  containerContent,
+  addTaskBTN
+) {
+  taskForm.reset();
+  dueDateBTN.innerHTML = Button("Due date", dueDateSvg).innerHTML;
+  priorityBTN.innerHTML = Button("Priority", prioritySvg).innerHTML;
+  storageBTN.innerHTML = Button("Inbox", inboxSvg).innerHTML;
+  addDropdownSvg(storageBTN);
+  containerContent.innerHTML = "";
+  containerContent.append(addTaskBTN);
 }
