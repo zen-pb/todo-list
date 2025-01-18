@@ -10,6 +10,7 @@ import Project from "../classes/Projects";
 import prioritySvg from "../assets/images/priority.svg";
 import dueDateSvg from "../assets/images/due-date.svg";
 import dropdownSvg from "../assets/images/dropdown.svg";
+import inboxSvg from "../assets/images/inbox-dropdown.svg";
 
 export default function loadContent(name = "Inbox") {
   generateData();
@@ -77,6 +78,8 @@ function addTaskRouteHandler(containerContent) {
     taskForm.reset();
     dueDateBTN.innerHTML = Button("Due date", dueDateSvg).innerHTML;
     priorityBTN.innerHTML = Button("Priority", prioritySvg).innerHTML;
+    storageBTN.innerHTML = Button("Inbox", inboxSvg).innerHTML;
+    addDropdownSvg(storageBTN);
     containerContent.innerHTML = "";
     containerContent.append(addTaskBTN);
   });
@@ -90,6 +93,8 @@ function addTaskRouteHandler(containerContent) {
     taskForm.reset();
     dueDateBTN.innerHTML = Button("Due date", dueDateSvg).innerHTML;
     priorityBTN.innerHTML = Button("Priority", prioritySvg).innerHTML;
+    storageBTN.innerHTML = Button("Inbox", inboxSvg).innerHTML;
+    addDropdownSvg(storageBTN);
     containerContent.innerHTML = "";
     containerContent.append(addTaskBTN);
   });
@@ -300,4 +305,10 @@ function generateData() {
   if (localStorage.length === 0) {
     Storage.generateData();
   }
+}
+
+function addDropdownSvg(storageBTN) {
+  const dropdown = document.createElement("img");
+  dropdown.src = dropdownSvg;
+  storageBTN.appendChild(dropdown);
 }
