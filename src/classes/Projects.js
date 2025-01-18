@@ -4,7 +4,7 @@ export default class Project {
   constructor(title, description = "") {
     this[title] = {
       description: description,
-      list: new TodoList(),
+      todo: new TodoList(),
     };
   }
 
