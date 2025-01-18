@@ -58,7 +58,7 @@ export default function generateTaskForm() {
   formActions.classList.add("form-actions");
 
   const storageBTN = Button("Inbox", inboxSvg);
-  storageBTN.id = "indoxDropdown";
+  storageBTN.id = "storage";
   const dropdown = document.createElement("img");
   dropdown.src = dropdownSvg;
 
