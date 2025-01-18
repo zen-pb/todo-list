@@ -6,6 +6,7 @@ import generateNewProjectModal from "./generateNewProjectModal";
 import generateNoteForm from "./generateNoteForm";
 import Notes from "../classes/Notes";
 import Storage from "../classes/Storage";
+import Project from "../classes/Projects";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -129,13 +130,22 @@ function addProjectRouteHandler(containerContent) {
   });
 
   closeBTN.addEventListener("click", () => {
+    projectForm.reset();
     projectDialog.close();
   });
 
   projectForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    if (formInputChecker(projectForm)) return;
+
     const formData = new FormData(projectForm);
+    const dataObject = Object.fromEntries(formData);
+
+    const project = new Project(dataObject.title);
+
+    projectForm.reset();
+    projectDialog.close();
   });
 
   cancelBTN.addEventListener("click", () => {
@@ -166,16 +176,7 @@ function addNoteRouteHandler(containerContent) {
   noteForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const formInputs = noteForm.querySelectorAll("input");
-    let isEmpty = true;
-
-    formInputs.forEach((input) => {
-      if (input.value.trim() !== "") {
-        isEmpty = false;
-      }
-    });
-
-    if (isEmpty) return;
+    if (formInputChecker(noteForm)) return;
 
     const formData = new FormData(noteForm);
     const dataObject = Object.fromEntries(formData);
@@ -228,4 +229,17 @@ function formattedDateHandler(dateInput, dueDateBTN) {
   if (dropdown && dropdown.classList.contains("show")) {
     dropdown.classList.remove("show");
   }
+}
+
+function formInputChecker(form) {
+  const formInputs = form.querySelectorAll("input");
+  let isEmpty = true;
+
+  formInputs.forEach((input) => {
+    if (input.value.trim() !== "") {
+      isEmpty = false;
+    }
+  });
+
+  return isEmpty;
 }
