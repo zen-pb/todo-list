@@ -9,7 +9,6 @@ import mediumPriority from "../assets/images/medium-priority.svg";
 import lowPriority from "../assets/images/low-priority.svg";
 import noPriority from "../assets/images/priority-none.svg";
 
-
 import storageList from "./storageList";
 
 export default function generateTaskForm() {
@@ -28,6 +27,7 @@ export default function generateTaskForm() {
   const descriptionInput = document.createElement("input");
   descriptionInput.type = "text";
   descriptionInput.name = "description";
+  descriptionInput.autocomplete = "off";
   descriptionInput.placeholder = "Description";
 
   formText.append(titleInput, descriptionInput);
