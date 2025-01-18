@@ -4,6 +4,8 @@ import generateTaskForm from "./generateTaskForm";
 import { format, getYear } from "date-fns";
 import generateNewProjectModal from "./generateNewProjectModal";
 import generateNoteForm from "./generateNoteForm";
+import Notes from "../classes/Notes";
+import Storage from "../classes/Storage";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -176,6 +178,15 @@ function addNoteRouteHandler(containerContent) {
     if (isEmpty) return;
 
     const formData = new FormData(noteForm);
+    const dataObject = Object.fromEntries(formData);
+
+    const note = new Notes(dataObject.title, dataObject.content);
+
+    Storage.setStorage("notes", note);
+
+    noteForm.reset();
+    containerContent.innerHTML = "";
+    containerContent.append(addNoteBTN);
   });
 
   containerContent.append(addNoteBTN);
