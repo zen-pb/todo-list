@@ -1,3 +1,4 @@
+import Notes from "./Notes";
 import Project from "./Projects";
 
 export default class Storage {
@@ -31,7 +32,7 @@ export default class Storage {
   }
 
   static generateData() {
-    console.log("Here");
     this.setStorage("projects", new Project("Inbox"));
+    this.setStorage("notes", new Notes("This is a note", "No, seriously. This is a note."));
   }
 }
