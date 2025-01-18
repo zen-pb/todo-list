@@ -9,6 +9,7 @@ import Storage from "../classes/Storage";
 import Project from "../classes/Projects";
 import prioritySvg from "../assets/images/priority.svg";
 import dueDateSvg from "../assets/images/due-date.svg";
+import dropdownSvg from "../assets/images/dropdown.svg";
 
 export default function loadContent(name = "Inbox") {
   generateData();
@@ -50,9 +51,14 @@ function addTaskRouteHandler(containerContent) {
   const taskForm = generateTaskForm();
   const dueDateBTN = taskForm.querySelector("button#due-date");
   const dateInput = taskForm.querySelector("input[type='date']");
+
+  const priorityDropdown = taskForm.querySelector(".priority-dropdown");
   const priorityBTN = taskForm.querySelector("button#priority");
-  const priorityChoices = taskForm.querySelectorAll(".dropdown-items button");
+  const priorityChoices = priorityDropdown.querySelectorAll("li button");
+
+  const storageDropdown = taskForm.querySelector(".storage-dropdown");
   const storageBTN = taskForm.querySelector("button#storage");
+  const storageChoices = storageDropdown.querySelectorAll("li button");
 
   const cancelBTN = taskForm.querySelector("button#cancel");
 
@@ -106,11 +112,21 @@ function addTaskRouteHandler(containerContent) {
     });
   });
 
+  storageBTN.addEventListener("click", (e) => {
+    dropdownContentHandler(storageBTN.id, taskForm);
+  });
+
+  storageChoices.forEach((button) => {
+    button.addEventListener("click", () => {
+      storageBTN.innerHTML = button.innerHTML;
+      const dropdown = document.createElement("img");
+      dropdown.src = dropdownSvg;
+      storageBTN.appendChild(dropdown);
+    });
+  });
+
   window.onclick = (event) => {
-    if (
-      !event.target.closest(".dropdown-button") &&
-      !event.target.closest("input[type='date']")
-    ) {
+    if (!event.target.closest(".dropdown-button")) {
       const dropdowns = document.getElementsByClassName("dropdown-items");
       for (let openDropdown of dropdowns) {
         if (openDropdown.classList.contains("show")) {
