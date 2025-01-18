@@ -2,12 +2,14 @@ import Button from "./Button";
 import dueDateSvg from "../assets/images/due-date.svg";
 import prioritySvg from "../assets/images/priority.svg";
 import inboxSvg from "../assets/images/inbox-dropdown.svg";
+import projectSvg from "../assets/images/projects-dropdown.svg";
 import dropdownSvg from "../assets/images/dropdown.svg";
 import Dropdown from "./Dropdown";
 import highPriority from "../assets/images/high-priority.svg";
 import mediumPriority from "../assets/images/medium-priority.svg";
 import lowPriority from "../assets/images/low-priority.svg";
 import noPriority from "../assets/images/priority-none.svg";
+import Storage from "../classes/Storage";
 
 export default function generateTaskForm() {
   const form = document.createElement("form");
@@ -64,9 +66,9 @@ export default function generateTaskForm() {
 
   storageBTN.appendChild(dropdown);
 
-  const storageDiv = document.createElement("div");
-  storageDiv.classList.add("storage-dropdown");
-  storageDiv.append(storageBTN);
+  const list = storageList();
+
+  const storageDiv = Dropdown(storageBTN, list);
 
   const actionsBTN = document.createElement("div");
   actionsBTN.classList.add("actions-btn");
@@ -81,4 +83,22 @@ export default function generateTaskForm() {
   form.append(formText, formOptions, formActions);
 
   return form;
+}
+
+function storageList() {
+  const data = Storage.getStorage("projects");
+
+  const projectNames = data.map((name) => Object.keys(name)[0]);
+
+  let list = [];
+
+  projectNames.forEach((name) => {
+    if (name === "Inbox") {
+      list.push(Button("Inbox", inboxSvg));
+    } else {
+      list.push(Button(name, projectSvg));
+    }
+  });
+
+  return list;
 }
