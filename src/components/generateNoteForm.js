@@ -14,7 +14,7 @@ export default function generateNoteForm() {
 
   const contentInput = document.createElement("input");
   contentInput.type = "text";
-  contentInput.name = "description";
+  contentInput.name = "content";
   contentInput.placeholder = "Take a note...";
 
   formText.append(titleInput, contentInput);
