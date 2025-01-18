@@ -200,6 +200,7 @@ nav .active {
 
 .form-actions {
     justify-content: space-between;
+    align-items: center;
     height: 49px;
     border-top: 1px solid #e6e6e6;
     font-size: 14px;
@@ -245,7 +246,8 @@ nav .active {
 }
 
 .due-date-dropdown,
-.priority-dropdown {
+.priority-dropdown,
+.storage-dropdown {
     position: relative;
     display: inline-block;
 }
@@ -266,6 +268,18 @@ nav .active {
     height: 100%;
     opacity: 0;
     cursor: pointer;
+}
+
+.storage-dropdown li button {
+    padding: 6px;
+}
+
+.storage-dropdown li button span {
+    margin-right: 0.45rem;
+}
+
+.storage-dropdown span img {
+    margin-bottom: 2px;
 }
 
 .dropdown-items {
@@ -299,10 +313,6 @@ nav .active {
 
 .dropdown-items button span {
     margin-right: 0.45rem;
-}
-
-.storage-dropdown {
-    display: flex;
 }
 
 .show {
