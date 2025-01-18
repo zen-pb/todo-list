@@ -18,14 +18,13 @@ export default function generateTaskForm() {
   const formText = document.createElement("div");
   formText.classList.add("form-text");
 
-  const titleInput = document.createElement("input");
-  titleInput.type = "text";
+  const titleInput = document.createElement("textarea");
   titleInput.name = "title";
+  titleInput.maxLength = "999";
   titleInput.placeholder = "Task name";
   titleInput.required = true;
 
-  const descriptionInput = document.createElement("input");
-  descriptionInput.type = "text";
+  const descriptionInput = document.createElement("textarea");
   descriptionInput.name = "description";
   descriptionInput.autocomplete = "off";
   descriptionInput.placeholder = "Description";
