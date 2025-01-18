@@ -7,13 +7,12 @@ export default function generateNoteForm() {
   const formText = document.createElement("div");
   formText.classList.add("form-text");
 
-  const titleInput = document.createElement("input");
-  titleInput.type = "text";
+  const titleInput = document.createElement("textarea");
   titleInput.name = "title";
+  titleInput.maxLength = "999";
   titleInput.placeholder = "Title";
 
-  const contentInput = document.createElement("input");
-  contentInput.type = "text";
+  const contentInput = document.createElement("textarea");
   contentInput.name = "content";
   contentInput.autocomplete = "off";
   contentInput.placeholder = "Take a note...";
