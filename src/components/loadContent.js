@@ -7,6 +7,8 @@ import generateNoteForm from "./generateNoteForm";
 import Notes from "../classes/Notes";
 import Storage from "../classes/Storage";
 import Project from "../classes/Projects";
+import prioritySvg from "../assets/images/priority.svg";
+import dueDateSvg from "../assets/images/due-date.svg";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -48,13 +50,27 @@ function addTaskRouteHandler(containerContent) {
   const dateInput = taskForm.querySelector("input[type='date']");
   const priorityBTN = taskForm.querySelector("button#priority");
   const priorityChoices = taskForm.querySelectorAll(".dropdown-items button");
+  const storageBTN = taskForm.querySelector("button#storage");
 
   const cancelBTN = taskForm.querySelector("button#cancel");
 
   taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    if (formInputChecker(taskForm)) return;
+
     const formData = new FormData(taskForm);
+    const dataObject = Object.fromEntries(formData);
+    dataObject.priority = priorityBTN.textContent.toLowerCase();
+    dataObject.projectName = storageBTN.textContent;
+
+    Storage.setStorage("projects", dataObject);
+
+    taskForm.reset();
+    dueDateBTN.innerHTML = Button("Due date", dueDateSvg).innerHTML;
+    priorityBTN.innerHTML = Button("Priority", prioritySvg).innerHTML;
+    containerContent.innerHTML = "";
+    containerContent.append(addTaskBTN);
   });
 
   addTaskBTN.addEventListener("click", () => {
@@ -63,8 +79,10 @@ function addTaskRouteHandler(containerContent) {
   });
 
   cancelBTN.addEventListener("click", () => {
-    containerContent.innerHTML = "";
     taskForm.reset();
+    dueDateBTN.innerHTML = Button("Due date", dueDateSvg).innerHTML;
+    priorityBTN.innerHTML = Button("Priority", prioritySvg).innerHTML;
+    containerContent.innerHTML = "";
     containerContent.append(addTaskBTN);
   });
 
