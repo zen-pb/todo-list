@@ -180,9 +180,23 @@ function addNoteRouteHandler(containerContent) {
   addNoteBTN.addEventListener("click", () => {
     containerContent.innerHTML = "";
     containerContent.append(noteForm);
+
+    const textareas = document.querySelectorAll("textarea");
+
+    textareas.forEach((textarea) => {
+      textarea.addEventListener("input", () => {
+        textarea.style.height = "auto";
+        textarea.style.height = textarea.scrollHeight + "px";
+
+        if (textarea.value === "") {
+          textarea.style.height = "45px";
+        }
+      });
+    });
   });
 
   closeBTN.addEventListener("click", () => {
+    textareaReset();
     containerContent.innerHTML = "";
     noteForm.reset();
     containerContent.append(addNoteBTN);
@@ -201,6 +215,7 @@ function addNoteRouteHandler(containerContent) {
     Storage.setStorage("notes", note);
 
     noteForm.reset();
+    textareaReset();
     containerContent.innerHTML = "";
     containerContent.append(addNoteBTN);
   });
@@ -329,25 +344,20 @@ function refreshList() {
     const list = storageList();
     const form = storageDropdown.closest("form");
 
-    // Store the current button's text before updating
     const currentStorageText = currentStorageBTN.textContent;
 
-    // Update the dropdown content
     storageDropdown.innerHTML = Dropdown(currentStorageBTN, list).innerHTML;
 
-    // Get the new button and update its text if needed
     const newStorageBTN = storageDropdown.querySelector("button#storage");
     if (currentStorageText !== "Inbox") {
       newStorageBTN.innerHTML = currentStorageText;
       addDropdownSvg(newStorageBTN);
     }
 
-    // Reattach click handler to the new button
     newStorageBTN.addEventListener("click", () => {
       dropdownContentHandler(newStorageBTN.id, form);
     });
 
-    // Reattach click handlers to all storage choices
     const storageChoices = storageDropdown.querySelectorAll("li button");
     storageChoices.forEach((button) => {
       button.addEventListener("click", () => {
@@ -378,4 +388,13 @@ function resetTaskForm(
   addDropdownSvg(storageBTN);
   containerContent.innerHTML = "";
   containerContent.append(addTaskBTN);
+}
+
+function textareaReset() {
+  const textareas = document.querySelectorAll("textarea");
+
+  textareas.forEach((textarea) => {
+    textarea.value = "";
+    textarea.style.height = "45px";
+  });
 }
