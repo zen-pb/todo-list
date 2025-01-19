@@ -14,6 +14,7 @@ import inboxSvg from "../assets/images/inbox-dropdown.svg";
 import storageList from "./storageList";
 import Dropdown from "./Dropdown";
 import loadNotes from "./loadNotes";
+import loadProjects from "./loadProjects";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -174,7 +175,9 @@ function addProjectRouteHandler(containerContent) {
     dialog.showModal();
   });
 
-  containerContent.append(addProjectBTN);
+  const projectContainer = loadProjects();
+
+  containerContent.append(addProjectBTN, projectContainer);
 }
 
 function addNoteRouteHandler(containerContent) {
@@ -227,7 +230,6 @@ function addNoteRouteHandler(containerContent) {
     containerContent.append(addNoteBTN);
 
     const existingNoteContainer = document.querySelector(".notes-container");
-    console.log(existingNoteContainer)
     if (existingNoteContainer) {
       existingNoteContainer.remove();
     }
@@ -339,6 +341,19 @@ function generateModal() {
     const project = new Project(dataObject.title);
 
     Storage.setStorage("projects", project);
+
+    const containerTitle = document.querySelector(".container-title");
+
+    if (containerTitle.textContent === "Projects") {
+      const existingProjectContainer =
+        document.querySelector(".project-container");
+      if (existingProjectContainer) {
+        existingProjectContainer.remove();
+      }
+
+      const projectContainer = loadProjects();
+      document.querySelector(".container-content").append(projectContainer);
+    }
 
     refreshList();
     projectForm.reset();
