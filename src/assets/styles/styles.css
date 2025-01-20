@@ -9,13 +9,9 @@ nav {
     padding: 1rem;
     background-color: var(--primary);
     border-radius: 1rem;
-    width: 80px;
+    width: 256px;
     overflow: hidden;
     transition: width 300ms ease;
-}
-
-nav:hover {
-    width: 256px;
 }
 
 nav button {
