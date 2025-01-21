@@ -55,10 +55,6 @@ nav .active {
     width: 100%;
 }
 
-.nav-item #projects img:last-of-type {
-    margin-left: auto;
-}
-
 .nav-main {
     margin-bottom: 1.75rem;
 }
