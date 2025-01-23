@@ -15,6 +15,7 @@ import storageList from "./storageList";
 import Dropdown from "./Dropdown";
 import loadNotes from "./loadNotes";
 import loadProjects from "./loadProjects";
+import loadTodos from "./loadTodos";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -164,7 +165,9 @@ function addTaskRouteHandler(containerContent) {
     });
   });
 
-  containerContent.append(addTaskBTN);
+  const todoContainer = loadTodos();
+
+  containerContent.append(todoContainer, addTaskBTN);
 }
 
 function addProjectRouteHandler(containerContent) {
