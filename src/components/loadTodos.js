@@ -18,7 +18,10 @@ export default function loadTodos() {
       todoWrapper.classList.add("todo-wrapper");
 
       const checkBTN = document.createElement("button");
-      checkBTN.classList.add("check", todoInfo.priority);
+      checkBTN.classList.add(
+        "check",
+        todoInfo.priority !== "priority" ? todoInfo.priority : "none"
+      );
 
       const img = document.createElement("img");
       img.src = checkSvg;
