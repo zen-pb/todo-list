@@ -456,3 +456,65 @@ dialog hr {
     border-radius: 10px;
     padding: 1rem;
 }
+
+.todo-parent-container {
+    width: 815px;
+    margin-inline: auto;
+}
+
+.todo-wrapper {
+    display: flex;
+    min-height: 42px;
+    max-height: 78px;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    width: 24px;
+    border: 1.75px solid #1e1e1e;
+    border-radius: 50%;
+    margin-top: 8px;
+    margin-right: 6px;
+    transition: all 0.3s ease;
+}
+
+.check.high {
+    background-color: #FF3131;
+}
+
+.check.medium {
+    background-color: #FFD700;
+}
+
+.check.low {
+    background-color: #FF6B35;
+}
+
+.check img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.check:hover img {
+    opacity: 1;
+}
+
+.todo-div {
+    padding: 8px 0;
+    width: 100%;
+}
+
+.todo-text p:last-of-type {
+    font-size: 14px;
+    color: #666666;
+}
+
+.todo-others {
+    display: flex;
+    justify-content: space-between;
+    color: #666666;
+    font-size: 14px;
+}
