@@ -17,10 +17,6 @@ export default function loadProjects() {
       projectDiv.classList.add("project-div");
 
       const title = Button(key, projectSvg);
-      const dropdown = document.createElement("img");
-      dropdown.src = dropdownSvg;
-
-      title.appendChild(dropdown);
 
       projectDiv.append(title);
       container.append(projectDiv);
