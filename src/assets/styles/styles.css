@@ -453,11 +453,29 @@ dialog hr {
     width: 100%;
     margin-inline: auto;
     border-radius: 10px;
-    padding: 1rem;
 }
 
 .project-div:first-of-type {
     margin-top: 1rem;
+}
+
+.project-div button {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.project-div button span {
+    margin-right: 0.45rem;
+}
+
+.project-div span img {
+    margin-bottom: 2px;
 }
 
 .todo-parent-container {
