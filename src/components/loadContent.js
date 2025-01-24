@@ -115,7 +115,8 @@ function addTaskRouteHandler(containerContent) {
 
   addTaskBTN.addEventListener("click", () => {
     containerContent.innerHTML = "";
-    containerContent.append(taskForm);
+    const todoContainer = loadTodos();
+    containerContent.append(todoContainer, taskForm);
   });
 
   cancelBTN.addEventListener("click", () => {
@@ -421,7 +422,8 @@ function resetTaskForm(
   storageBTN.innerHTML = Button("Inbox", inboxSvg).innerHTML;
   addDropdownSvg(storageBTN);
   containerContent.innerHTML = "";
-  containerContent.append(addTaskBTN);
+  const todoContainer = loadTodos();
+  containerContent.append(todoContainer, addTaskBTN);
 }
 
 function textareaReset() {
