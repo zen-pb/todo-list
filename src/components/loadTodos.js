@@ -1,5 +1,6 @@
 import Storage from "../classes/Storage";
 import checkSvg from "../assets/images/check.svg";
+import Options from "./Options";
 
 export default function loadTodos() {
   const todos = Storage.getStorage("projects");
@@ -27,6 +28,8 @@ export default function loadTodos() {
       img.src = checkSvg;
       checkBTN.appendChild(img);
 
+      const optionsDiv = Options();
+
       const todoDiv = document.createElement("div");
       todoDiv.classList.add("todo-div");
 
@@ -52,7 +55,7 @@ export default function loadTodos() {
       todoOtherObj.append(dueDate, projectName);
       todoDiv.append(todoTextDiv, todoOtherObj);
 
-      todoWrapper.append(checkBTN, todoDiv);
+      todoWrapper.append(checkBTN, todoDiv, optionsDiv);
       childContainer.appendChild(todoWrapper);
     });
 
