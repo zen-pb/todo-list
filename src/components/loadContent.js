@@ -50,10 +50,10 @@ export default function loadContent(name = "Inbox") {
 
   const dialog = generateModal();
 
-  document.addEventListener(
+  content.addEventListener(
     "click",
-    (event) => {
-      if (!event.target.closest(".dropdown-button")) {
+    (e) => {
+      if (!e.target.closest(".dropdown-button")) {
         const dropdowns = document.getElementsByClassName("dropdown-items");
         Array.from(dropdowns).forEach((dropdown) => {
           if (dropdown.classList.contains("show")) {
@@ -61,12 +61,26 @@ export default function loadContent(name = "Inbox") {
           }
         });
       }
+
+      const optionsBtn = e.target.closest("#options");
+      if (optionsBtn) {
+        const wrapper = optionsBtn.closest(".todo-wrapper");
+        dropdownContentHandler(optionsBtn.id, wrapper);
+      }
     },
     true
   );
 
   container.append(containerTitle, containerContent);
   content.append(container, dialog);
+
+  if (addTasksRoutes.includes(containerTitle.textContent)) {
+    const todoWrappers = document.querySelectorAll(".todo-wrapper");
+
+    todoWrappers.forEach((wrapper) => {
+      optionsHandler(wrapper);
+    });
+  }
 
   if (containerTitle.textContent === "Notes") {
     const noteContainer = loadNotes();
@@ -248,9 +262,11 @@ function addNoteRouteHandler(containerContent) {
 function dropdownContentHandler(buttonId, taskForm) {
   const dropdownContent = taskForm.querySelector(`.${buttonId}-dropdown ul`);
 
-  const openDropdowns = taskForm.querySelectorAll(".dropdown-items.show");
+  const openDropdowns = document.querySelectorAll(".dropdown-items.show");
   openDropdowns.forEach((dropdown) => {
-    if (dropdown !== dropdownContent) dropdown.classList.remove("show");
+    if (dropdown !== dropdownContent) {
+      dropdown.classList.remove("show");
+    }
   });
 
   dropdownContent.classList.toggle("show");
@@ -432,5 +448,13 @@ function textareaReset() {
   textareas.forEach((textarea) => {
     textarea.value = "";
     textarea.style.height = "45px";
+  });
+}
+
+function optionsHandler(div) {
+  const optionsBTN = div.querySelector("#options");
+
+  optionsBTN.addEventListener("click", () => {
+    dropdownContentHandler(optionsBTN.id, div);
   });
 }
