@@ -487,19 +487,38 @@ dialog hr {
     display: flex;
     min-height: 42px;
     max-height: 78px;
+    cursor: pointer;
 }
 
-.check {
+.todo-wrapper button {
+    cursor: pointer;
+}
+
+.check,
+.options {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 24px;
     width: 24px;
+    margin-top: 7px;
+    transition: all 0.3s ease;
+}
+
+.check {
     border: 1.75px solid #1e1e1e;
     border-radius: 50%;
-    margin-top: 7px;
     margin-right: 6px;
-    transition: all 0.3s ease;
+}
+
+.check img,
+.options img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.check:hover img {
+    opacity: 1;
 }
 
 .check.high {
@@ -514,18 +533,10 @@ dialog hr {
     background-color: #FF6B35;
 }
 
-.check img {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.check:hover img {
-    opacity: 1;
-}
-
 .todo-div {
     padding: 8px 0;
     width: 100%;
+    cursor: pointer;
 }
 
 .todo-text p:last-of-type {
@@ -538,4 +549,12 @@ dialog hr {
     justify-content: space-between;
     color: #666666;
     font-size: 14px;
+}
+
+.options img {
+    opacity: 0;
+}
+
+.todo-wrapper:hover .options img {
+    opacity: 1;
 }
