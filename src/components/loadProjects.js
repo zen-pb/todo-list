@@ -1,6 +1,5 @@
 import Storage from "../classes/Storage";
 import Button from "./Button";
-import dropdownSvg from "../assets/images/dropdown.svg";
 import projectSvg from "../assets/images/projects-dropdown.svg";
 
 export default function loadProjects() {
