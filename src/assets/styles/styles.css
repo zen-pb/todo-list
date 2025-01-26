@@ -315,6 +315,7 @@ nav .active {
     border: none;
     width: 100%;
     border-radius: 0;
+    padding: 6px;
 }
 
 .dropdown-items button:hover {
@@ -511,8 +512,7 @@ dialog hr {
     margin-right: 6px;
 }
 
-.check img,
-.options img {
+.check img {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -551,10 +551,6 @@ dialog hr {
     font-size: 14px;
 }
 
-.options img {
-    opacity: 0;
-}
-
-.todo-wrapper:hover .options img {
-    opacity: 1;
+.options-dropdown .dropdown-items {
+    width: 100px;
 }
