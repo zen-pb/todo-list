@@ -64,7 +64,7 @@ export default function loadContent(name = "Inbox") {
   container.append(containerTitle, containerContent);
   content.append(container, dialog);
 
-  if (addTasksRoutes.includes(containerTitle.textContent)) {
+  if (containerTitle.textContent === "Inbox") {
     containerContent.addEventListener("click", (e) => {
       const optionsButton = e.target.closest("#options");
       const dropdownButton = e.target.closest(".dropdown-button");
