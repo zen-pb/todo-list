@@ -5,8 +5,6 @@ export default function navHandler() {
 
   const routes = {
     inbox: "Inbox",
-    today: "Today",
-    week: "This Week",
     projects: "Projects",
     notes: "Notes",
   };
