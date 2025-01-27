@@ -52,6 +52,7 @@ export default function loadTodos() {
 
       const projectName = document.createElement("p");
       projectName.textContent = key;
+      projectName.classList.add("todo-project-text");
 
       todoTextDiv.append(title, description);
       todoOtherObj.append(dueDate, projectName);
