@@ -463,8 +463,7 @@ function deleteHandler() {
 
   deleteBTNs.forEach((deleteBTN) => {
     deleteBTN.addEventListener("click", () => {
-      const todoWrapper =
-        deleteBTN.parentElement.parentElement.parentElement.parentElement;
+      const todoWrapper = deleteBTN.closest(".todo-wrapper");
 
       const todo = {
         title: todoWrapper.querySelector(".todo-title-text").textContent,
@@ -473,6 +472,19 @@ function deleteHandler() {
       };
 
       Storage.setStorage("projects", todo, true);
+
+      const containerTitle =
+        document.querySelector(".container-title").textContent;
+
+      if (containerTitle === "Inbox") {
+        const containerContent = document.querySelector(".container-content");
+        containerContent.innerHTML = "";
+        const todoContainer = loadTodos();
+        const addTaskBTN = Button("Add task", addSvg);
+        containerContent.append(todoContainer, addTaskBTN);
+      } else if (containerTitle.startsWith("Project:")) {
+        loadContent(containerTitle);
+      }
     });
   });
 }
