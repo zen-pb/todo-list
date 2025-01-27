@@ -41,9 +41,11 @@ export default function loadTodos() {
 
       const title = document.createElement("p");
       title.textContent = todoInfo.title;
+      title.classList.add("todo-title-text");
 
       const description = document.createElement("p");
       description.textContent = todoInfo.description;
+      description.classList.add("todo-desc-text");
 
       const dueDate = document.createElement("p");
       dueDate.textContent = todoInfo.date;
