@@ -34,9 +34,7 @@ export default function loadContent(name = "Inbox") {
   const containerContent = document.createElement("div");
   containerContent.classList.add("container-content");
 
-  const addTasksRoutes = ["Inbox", "Today", "This Week"];
-
-  if (addTasksRoutes.includes(containerTitle.textContent)) {
+  if (containerTitle.textContent === "Inbox") {
     addTaskRouteHandler(containerContent);
   }
 
