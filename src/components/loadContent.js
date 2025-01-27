@@ -457,26 +457,3 @@ function textareaReset() {
     textarea.style.height = "45px";
   });
 }
-
-function optionsHandler(div) {
-  const optionsBTN = div.querySelector(".options.dropdown-button");
-
-  optionsBTN.removeEventListener("click", optionsClickHandler);
-  optionsBTN.addEventListener("click", optionsClickHandler);
-}
-
-function optionsClickHandler(e) {
-  e.stopPropagation();
-  const wrapper = e.currentTarget.closest(".todo-wrapper");
-  const dropdown = wrapper.querySelector(".dropdown-items");
-
-  if (dropdown) {
-    const openDropdowns = document.querySelectorAll(".dropdown-items.show");
-    openDropdowns.forEach((openDropdown) => {
-      if (openDropdown !== dropdown) {
-        openDropdown.classList.remove("show");
-      }
-    });
-    dropdown.classList.toggle("show");
-  }
-}
