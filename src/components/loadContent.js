@@ -91,6 +91,8 @@ export default function loadContent(name = "Inbox") {
     const noteContainer = loadNotes();
     content.appendChild(noteContainer);
   }
+
+  deleteHandler();
 }
 
 function addTaskRouteHandler(containerContent) {
@@ -453,5 +455,24 @@ function textareaReset() {
   textareas.forEach((textarea) => {
     textarea.value = "";
     textarea.style.height = "45px";
+  });
+}
+
+function deleteHandler() {
+  const deleteBTNs = document.querySelectorAll("button#delete");
+
+  deleteBTNs.forEach((deleteBTN) => {
+    deleteBTN.addEventListener("click", () => {
+      const todoWrapper =
+        deleteBTN.parentElement.parentElement.parentElement.parentElement;
+
+      const todo = {
+        title: todoWrapper.querySelector(".todo-title-text").textContent,
+        projectName:
+          todoWrapper.querySelector(".todo-project-text").textContent,
+      };
+
+      Storage.setStorage("projects", todo, true);
+    });
   });
 }
