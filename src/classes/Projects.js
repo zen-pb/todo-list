@@ -1,9 +1,8 @@
 import TodoList from "./TodoList";
 
 export default class Project {
-  constructor(title, description = "") {
+  constructor(title) {
     this[title] = {
-      description: description,
       ...new TodoList(),
     };
   }
