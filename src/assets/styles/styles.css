@@ -28,12 +28,6 @@ nav button span {
     text-align: left;
 }
 
-nav hr {
-    width: 99%;
-    margin-inline: auto;
-    border: 1px solid var(--secondary);
-}
-
 nav .active {
     background-color: var(--secondary);
 }
@@ -53,20 +47,6 @@ nav .active {
     display: flex;
     align-items: center;
     width: 100%;
-}
-
-.nav-main {
-    margin-bottom: 1.75rem;
-}
-
-.nav-other {
-    margin-top: 1rem;
-}
-
-.nav-main,
-.nav-other {
-    display: flex;
-    flex-direction: column;
 }
 
 #content {
