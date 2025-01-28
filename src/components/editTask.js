@@ -4,6 +4,7 @@ import generateTaskForm from "./generateTaskForm";
 export default function editTask(todoWrapper) {
   const editTaskForm = generateTaskForm();
 
+  const todoID = todoWrapper.classList[1];
   const todoTitle = todoWrapper.querySelector(".todo-title-text").textContent;
   const todoDesc =
     todoWrapper.querySelector(".todo-desc-text").textContent || "";
@@ -12,6 +13,8 @@ export default function editTask(todoWrapper) {
   const todoPriority = todoWrapper.querySelector(".check");
   const todoProject =
     todoWrapper.querySelector(".todo-project-text").textContent;
+
+  editTaskForm.classList.add(todoID);
   const taskFormTitle = editTaskForm.querySelector('textarea[name="title"]');
   taskFormTitle.textContent = todoTitle;
   const taskFormDesc = editTaskForm.querySelector(
