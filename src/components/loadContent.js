@@ -447,6 +447,20 @@ function editHandler() {
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+
+        const formData = new FormData(form);
+        const dataObject = Object.fromEntries(formData);
+        dataObject.priority = priorityBTN.textContent.toLowerCase();
+        dataObject.projectName = storageBTN.textContent;
+        dataObject.id = form.classList[1];
+
+        Storage.setStorage("projects", dataObject, "update");
+
+        dialog.close();
+
+        const containerTitle =
+          document.querySelector(".container-title").textContent;
+        loadContent(containerTitle);
       });
     });
   });
