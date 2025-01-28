@@ -478,8 +478,10 @@ dialog hr {
 .todo-wrapper {
     display: flex;
     min-height: 42px;
-    max-height: 78px;
+    max-height: 80px;
     cursor: pointer;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: .5rem;
 }
 
 .todo-wrapper button {
@@ -492,7 +494,8 @@ dialog hr {
     align-items: center;
     justify-content: center;
     height: 24px;
-    width: 24px;
+    max-width: 24px;
+    width: 100%;
     margin-top: 7px;
     transition: all 0.3s ease;
 }
