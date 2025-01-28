@@ -463,6 +463,7 @@ function deleteHandler(containerContent) {
         title: todoWrapper.querySelector(".todo-title-text").textContent,
         projectName:
           todoWrapper.querySelector(".todo-project-text").textContent,
+        id: todoWrapper.classList[1],
       };
 
       Storage.setStorage("projects", todo, "delete");
