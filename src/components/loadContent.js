@@ -435,6 +435,16 @@ function editHandler() {
 
       const form = dialog.querySelector("form");
       addTaskEventListeners(form);
+
+      const cancelBTN = form.querySelector("button#cancel");
+
+      cancelBTN.addEventListener("click", () => {
+        dialog.close();
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+      });
     });
   });
 }
