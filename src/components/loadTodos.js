@@ -1,6 +1,7 @@
 import Storage from "../classes/Storage";
 import checkSvg from "../assets/images/check.svg";
 import Options from "./Options";
+import { format, getYear } from "date-fns";
 
 export default function loadTodos() {
   const todos = Storage.getStorage("projects");
@@ -48,8 +49,15 @@ export default function loadTodos() {
       description.classList.add("todo-desc-text");
 
       const dueDate = document.createElement("p");
-      dueDate.textContent = todoInfo.date;
-      dueDate.classList.add("todo-due-date");
+
+      if (todoInfo.date !== "") {
+        const date = new Date(todoInfo.date);
+
+        dueDate.textContent = date.toString().includes(`${getYear(new Date())}`)
+          ? format(date, "dd MMM")
+          : format(date, "dd MMM yyyy");
+        dueDate.classList.add("todo-due-date");
+      }
 
       const projectName = document.createElement("p");
       projectName.textContent = key;
