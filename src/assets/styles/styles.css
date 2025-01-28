@@ -338,7 +338,7 @@ dialog::backdrop {
 }
 
 .edit-task-dialog {
-    width: auto;
+    width: 800px;
     background-color: transparent;
     height: 350px;
 }
