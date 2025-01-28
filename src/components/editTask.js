@@ -31,7 +31,5 @@ export default function editTask(todoWrapper) {
   saveBTN.id = "save";
   saveBTN.textContent = "Save";
 
-  console.log();
-
   return editTaskForm;
 }
