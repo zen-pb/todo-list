@@ -49,6 +49,7 @@ export default function loadTodos() {
 
       const dueDate = document.createElement("p");
       dueDate.textContent = todoInfo.date;
+      dueDate.classList.add(".todo-due-date");
 
       const projectName = document.createElement("p");
       projectName.textContent = key;
