@@ -118,8 +118,9 @@ function addTaskRouteHandler(containerContent) {
     const dataObject = Object.fromEntries(formData);
     dataObject.priority = priorityBTN.textContent.toLowerCase();
     dataObject.projectName = storageBTN.textContent;
+    dataObject.id = crypto.randomUUID();
 
-    Storage.setStorage("projects", dataObject);
+    Storage.setStorage("projects", dataObject, "store");
 
     resetTaskForm(
       taskForm,
@@ -208,7 +209,7 @@ function addNoteRouteHandler(containerContent) {
 
     const note = new Notes(dataObject.title, dataObject.content);
 
-    Storage.setStorage("notes", note);
+    Storage.setStorage("notes", note, "store");
 
     noteForm.reset();
     textareaReset();
@@ -328,7 +329,7 @@ function generateModal() {
 
     const project = new Project(dataObject.title);
 
-    Storage.setStorage("projects", project);
+    Storage.setStorage("projects", project, "store");
 
     const containerTitle = document.querySelector(".container-title");
 
@@ -436,6 +437,8 @@ function editHandler() {
       const form = dialog.querySelector("form");
       addTaskEventListeners(form);
 
+      const priorityBTN = form.querySelector("button#priority");
+      const storageBTN = form.querySelector("button#storage");
       const cancelBTN = form.querySelector("button#cancel");
 
       cancelBTN.addEventListener("click", () => {
@@ -462,7 +465,7 @@ function deleteHandler(containerContent) {
           todoWrapper.querySelector(".todo-project-text").textContent,
       };
 
-      Storage.setStorage("projects", todo, true);
+      Storage.setStorage("projects", todo, "delete");
 
       const containerTitle =
         document.querySelector(".container-title").textContent;
