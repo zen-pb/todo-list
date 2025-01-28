@@ -16,6 +16,7 @@ import Dropdown from "./Dropdown";
 import loadNotes from "./loadNotes";
 import loadProjects from "./loadProjects";
 import loadTodos from "./loadTodos";
+import editTask from "./editTask";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -92,6 +93,7 @@ export default function loadContent(name = "Inbox") {
     content.appendChild(noteContainer);
   }
 
+  editHandler();
   deleteHandler(containerContent);
 }
 
@@ -100,53 +102,12 @@ function addTaskRouteHandler(containerContent) {
 
   const taskForm = generateTaskForm();
   const dueDateBTN = taskForm.querySelector("button#due-date");
-  const dateInput = taskForm.querySelector("input[type='date']");
-
-  const priorityDropdown = taskForm.querySelector(".priority-dropdown");
   const priorityBTN = taskForm.querySelector("button#priority");
-  const priorityChoices = priorityDropdown.querySelectorAll("li button");
-
-  const storageDropdown = taskForm.querySelector(".storage-dropdown");
   const storageBTN = taskForm.querySelector("button#storage");
-  const storageChoices = storageDropdown.querySelectorAll("li button");
 
   const cancelBTN = taskForm.querySelector("button#cancel");
 
-  dueDateBTN.addEventListener("click", () => {
-    dateInput.showPicker();
-  });
-
-  dateInput.addEventListener("change", () => {
-    formattedDateHandler(dateInput, dueDateBTN);
-  });
-
-  priorityBTN.addEventListener("click", () => {
-    dropdownContentHandler(priorityBTN.id, taskForm);
-  });
-
-  priorityChoices.forEach((button) => {
-    button.addEventListener("click", () => {
-      priorityBTN.innerHTML = button.innerHTML;
-    });
-  });
-
-  storageBTN.addEventListener("click", (e) => {
-    dropdownContentHandler(storageBTN.id, taskForm);
-  });
-
-  storageChoices.forEach((button) => {
-    button.addEventListener("click", () => {
-      if (button.id !== "add-project") {
-        storageBTN.innerHTML = button.innerHTML;
-        const dropdown = document.createElement("img");
-        dropdown.src = dropdownSvg;
-        storageBTN.appendChild(dropdown);
-      } else {
-        const dialog = document.querySelector(".project-dialog");
-        dialog.showModal();
-      }
-    });
-  });
+  addTaskEventListeners(taskForm);
 
   taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -447,6 +408,7 @@ function resetTaskForm(
   containerContent.innerHTML = "";
   const todoContainer = loadTodos();
   containerContent.append(todoContainer, addTaskBTN);
+  editHandler();
   deleteHandler(containerContent);
 }
 
@@ -456,6 +418,24 @@ function textareaReset() {
   textareas.forEach((textarea) => {
     textarea.value = "";
     textarea.style.height = "45px";
+  });
+}
+
+function editHandler() {
+  const editBTNs = document.querySelectorAll("button#edit");
+
+  editBTNs.forEach((editBTN) => {
+    editBTN.addEventListener("click", () => {
+      const todoWrapper = editBTN.closest(".todo-wrapper");
+      const dialog = document.querySelector("dialog");
+      dialog.innerHTML = "";
+      dialog.className = "edit-task-dialog";
+      dialog.append(editTask(todoWrapper));
+      dialog.showModal();
+
+      const form = dialog.querySelector("form");
+      addTaskEventListeners(form);
+    });
   });
 }
 
@@ -480,13 +460,64 @@ function deleteHandler(containerContent) {
       if (containerTitle === "Inbox") {
         containerContent.innerHTML = "";
         addTaskRouteHandler(containerContent);
+        editHandler();
         deleteHandler(containerContent);
       } else if (
         containerTitle.startsWith("Projects") ||
         containerTitle.startsWith("Notes")
       ) {
         loadContent(containerTitle);
+        editHandler();
         deleteHandler(containerContent);
+      }
+    });
+  });
+}
+
+function addTaskEventListeners(form) {
+  const dueDateBTN = form.querySelector("button#due-date");
+  const dateInput = form.querySelector("input[type='date']");
+
+  const priorityDropdown = form.querySelector(".priority-dropdown");
+  const priorityBTN = form.querySelector("button#priority");
+  const priorityChoices = priorityDropdown.querySelectorAll("li button");
+
+  const storageDropdown = form.querySelector(".storage-dropdown");
+  const storageBTN = form.querySelector("button#storage");
+  const storageChoices = storageDropdown.querySelectorAll("li button");
+
+  dueDateBTN.addEventListener("click", () => {
+    dateInput.showPicker();
+  });
+
+  dateInput.addEventListener("change", () => {
+    formattedDateHandler(dateInput, dueDateBTN);
+  });
+
+  priorityBTN.addEventListener("click", () => {
+    dropdownContentHandler(priorityBTN.id, form);
+  });
+
+  priorityChoices.forEach((button) => {
+    button.addEventListener("click", () => {
+      priorityBTN.innerHTML = button.innerHTML;
+    });
+  });
+
+  storageBTN.addEventListener("click", (e) => {
+    dropdownContentHandler(storageBTN.id, form);
+  });
+
+  storageChoices.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.id !== "add-project") {
+        storageBTN.innerHTML = button.innerHTML;
+        const dropdown = document.createElement("img");
+        dropdown.src = dropdownSvg;
+        storageBTN.appendChild(dropdown);
+      } else {
+        const dialog = document.querySelector(".project-dialog");
+        dialog.showModal();
       }
     });
   });
