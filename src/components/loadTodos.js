@@ -18,6 +18,7 @@ export default function loadTodos() {
     todoItem.list.forEach((todoInfo) => {
       const todoWrapper = document.createElement("div");
       todoWrapper.classList.add("todo-wrapper");
+      todoWrapper.classList.add(`${todoInfo.id}`);
 
       const checkBTN = document.createElement("button");
       checkBTN.classList.add(
