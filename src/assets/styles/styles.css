@@ -488,7 +488,7 @@ dialog hr {
     cursor: pointer;
 }
 
-.check,
+.unchecked,
 .options {
     display: flex;
     align-items: center;
@@ -500,30 +500,30 @@ dialog hr {
     transition: all 0.3s ease;
 }
 
-.check {
+.unchecked {
     border: 1.75px solid #1e1e1e;
     border-radius: 50%;
     margin-right: 6px;
 }
 
-.check img {
+.unchecked img {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.check:hover img {
+.unchecked:hover img {
     opacity: 1;
 }
 
-.check.high {
+.unchecked.high {
     background-color: #FF3131;
 }
 
-.check.medium {
+.unchecked.medium {
     background-color: #FFD700;
 }
 
-.check.low {
+.unchecked.low {
     background-color: #FF6B35;
 }
 
