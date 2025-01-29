@@ -120,6 +120,7 @@ function addTaskRouteHandler(containerContent) {
     dataObject.priority = priorityBTN.textContent.toLowerCase();
     dataObject.projectName = storageBTN.textContent;
     dataObject.id = crypto.randomUUID();
+    dataObject.checked = false;
 
     Storage.setStorage("projects", dataObject, "store");
 
@@ -435,6 +436,15 @@ function todoCheckHandler() {
       todoDiv.classList.toggle("checked");
 
       checkBTN.classList.toggle("checked");
+
+      const todo = {
+        id: todoWrapper.classList[1],
+        checked: checkBTN.classList[1] === "checked",
+        projectName:
+          todoWrapper.querySelector(".todo-project-text").textContent,
+      };
+
+      Storage.setStorage("projects", todo, "update");
     });
   });
 }
