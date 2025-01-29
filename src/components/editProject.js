@@ -1,7 +1,9 @@
 import generateNewProjectModal from "./generateNewProjectModal";
 
 export default function editProject(projectDiv) {
-  const editProjectForm = generateNewProjectModal();
+  const modal = generateNewProjectModal();
+
+  const editProjectForm = modal.querySelector("form");
 
   const projectName = projectDiv.querySelector(".project-name").textContent;
 
