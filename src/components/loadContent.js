@@ -335,6 +335,8 @@ function generateModal() {
     refreshList();
     projectForm.reset();
     projectDialog.close();
+    editHandler();
+    deleteHandler();
   });
 
   cancelBTN.addEventListener("click", () => {
