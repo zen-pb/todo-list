@@ -249,7 +249,7 @@ function formattedDateHandler(dateInput, dueDateBTN) {
     formattedDate = format(selectedDate, "dd MMM yyyy");
   }
 
-  dueDateBTN.childNodes[1].textContent = formattedDate;
+  dueDateBTN.textContent = formattedDate;
 
   const dropdown = dateInput.closest(".dropdown-items");
   if (dropdown && dropdown.classList.contains("show")) {
