@@ -93,6 +93,7 @@ export default function loadContent(name = "Inbox") {
     content.appendChild(noteContainer);
   }
 
+  todoCheckHandler();
   editHandler();
   deleteHandler(containerContent);
 }
@@ -419,6 +420,22 @@ function textareaReset() {
   textareas.forEach((textarea) => {
     textarea.value = "";
     textarea.style.height = "45px";
+  });
+}
+
+function todoCheckHandler() {
+  const checkBTNs = document.querySelectorAll("button#checkBTN");
+
+  checkBTNs.forEach((checkBTN) => {
+    checkBTN.addEventListener("click", () => {
+      const todoWrapper = checkBTN.closest(".todo-wrapper");
+      todoWrapper.classList.toggle("checked");
+
+      const todoDiv = todoWrapper.querySelector(".todo-div");
+      todoDiv.classList.toggle("checked");
+
+      checkBTN.classList.toggle("checked");
+    });
   });
 }
 
