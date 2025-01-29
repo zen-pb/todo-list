@@ -3,6 +3,7 @@ import TodoList from "./TodoList";
 export default class Project {
   constructor(title) {
     this[title] = {
+      id: crypto.randomUUID(),
       ...new TodoList(),
     };
   }
