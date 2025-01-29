@@ -22,7 +22,6 @@ export default function loadTodos() {
 
       const checkBTN = document.createElement("button");
       checkBTN.classList.add(
-        "unchecked",
         todoInfo.priority !== "priority" ? todoInfo.priority : "none"
       );
       checkBTN.id = "checkBTN";
