@@ -473,7 +473,12 @@ function editHandler() {
 
           Storage.setStorage("projects", dataObject, "update");
 
-          dialog.close();
+          dialog.remove();
+
+          const content = document.getElementById("content");
+          const dialog = generateModal();
+
+          content.appendChild(dialog);
 
           const containerTitle =
             document.querySelector(".container-title").textContent;
