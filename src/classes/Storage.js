@@ -69,14 +69,24 @@ export default class Storage {
       if (storageName === "projects") {
         storedItem = this.getStorage(storageName);
 
-        const projectName = data.projectName;
-        const project = storedItem.find((proj) => proj[projectName]);
-        delete data.projectName;
+        if (data.projectName) {
+          const projectName = data.projectName;
+          const project = storedItem.find((proj) => proj[projectName]);
+          delete data.projectName;
 
-        if (project) {
-          project[projectName].list = project[projectName].list.filter(
-            (todo) => todo.id !== data.id
+          if (project) {
+            project[projectName].list = project[projectName].list.filter(
+              (todo) => todo.id !== data.id
+            );
+          }
+        } else {
+          const index = storedItem.findIndex((proj) =>
+            proj.hasOwnProperty(data)
           );
+
+          if (index !== -1) {
+            storedItem.splice(index, 1);
+          }
         }
       }
     }
