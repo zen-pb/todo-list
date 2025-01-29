@@ -104,6 +104,12 @@ export default class Storage {
           }
         }
       }
+
+      if (storageName === "notes") {
+        storedItem = this.getStorage(storageName);
+
+        storedItem = storedItem.filter((note) => note.id !== data);
+      }
     }
 
     localStorage.setItem(storageName, JSON.stringify(storedItem));
