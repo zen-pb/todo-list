@@ -15,6 +15,7 @@ export default function loadProjects() {
     if (key !== "Inbox") {
       const projectDiv = document.createElement("div");
       projectDiv.classList.add("project-div");
+      projectDiv.classList.add(`${project[key].id}`);
 
       const title = Button(key, projectSvg);
       title.classList.add("project-name");
