@@ -66,26 +66,11 @@ export default function loadContent(name = "Inbox") {
   content.append(container, dialog);
 
   if (containerTitle.textContent === "Inbox") {
-    containerContent.addEventListener("click", (e) => {
-      const optionsButton = e.target.closest("#options");
-      const dropdownButton = e.target.closest(".dropdown-button");
+    dropdownEventListeners(containerContent);
+  }
 
-      if (optionsButton) {
-        const wrapper = optionsButton.closest(".todo-wrapper");
-        const dropdown = wrapper.querySelector(".dropdown-items");
-
-        document.querySelectorAll(".dropdown-items.show").forEach((dd) => {
-          if (dd !== dropdown) dd.classList.remove("show");
-        });
-        dropdown.classList.toggle("show");
-      }
-
-      if (!dropdownButton) {
-        document.querySelectorAll(".dropdown-items.show").forEach((dd) => {
-          dd.classList.remove("show");
-        });
-      }
-    });
+  if (containerTitle.textContent === "Projects") {
+    dropdownEventListeners(containerContent);
   }
 
   if (containerTitle.textContent === "Notes") {
@@ -578,5 +563,28 @@ function addTaskEventListeners(form) {
         dialog.showModal();
       }
     });
+  });
+}
+
+function dropdownEventListeners(containerContent) {
+  containerContent.addEventListener("click", (e) => {
+    const optionsButton = e.target.closest("#options");
+    const dropdownButton = e.target.closest(".dropdown-button");
+
+    if (optionsButton) {
+      const wrapper = optionsButton.closest("div");
+      const dropdown = wrapper.querySelector(".dropdown-items");
+
+      document.querySelectorAll(".dropdown-items.show").forEach((dd) => {
+        if (dd !== dropdown) dd.classList.remove("show");
+      });
+      dropdown.classList.toggle("show");
+    }
+
+    if (!dropdownButton) {
+      document.querySelectorAll(".dropdown-items.show").forEach((dd) => {
+        dd.classList.remove("show");
+      });
+    }
   });
 }
