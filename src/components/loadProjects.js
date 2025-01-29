@@ -17,6 +17,7 @@ export default function loadProjects() {
       projectDiv.classList.add("project-div");
 
       const title = Button(key, projectSvg);
+      title.classList.add("project-name");
 
       const optionsDiv = Options();
 
