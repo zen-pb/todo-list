@@ -414,7 +414,7 @@ dialog hr {
 }
 
 .note-card {
-    display: inline-block;
+    position: relative;
     width: 250px;
     margin: 0 0 1rem 0;
     border: 1px solid #e6e6e6;
@@ -422,6 +422,19 @@ dialog hr {
     break-inside: avoid;
     box-sizing: border-box;
     cursor: pointer;
+}
+
+.note-card #close {
+    opacity: 0;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.note-card:hover #close {
+    opacity: 1;
 }
 
 .note-card-titleDiv {
