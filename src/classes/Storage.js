@@ -63,6 +63,21 @@ export default class Storage {
           }
         }
       }
+
+      if (storageName === "notes") {
+        storedItem = this.getStorage(storageName) || [];
+
+        storedItem.forEach((note) => {
+          if (data.id === note.id) {
+            Object.keys(data).forEach((key) => {
+              if (key in note) {
+                note[key] = data[key];
+              }
+            });
+            return;
+          }
+        });
+      }
     }
 
     if (option === "delete") {
