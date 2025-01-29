@@ -474,6 +474,10 @@ function editHandler() {
           Storage.setStorage("projects", dataObject, "update");
 
           dialog.close();
+
+          const containerTitle =
+            document.querySelector(".container-title").textContent;
+          loadContent(containerTitle);
         });
       }
 
@@ -498,12 +502,12 @@ function editHandler() {
           Storage.setStorage("projects", dataObject, "update");
 
           dialog.close();
+
+          const containerTitle =
+            document.querySelector(".container-title").textContent;
+          loadContent(containerTitle);
         });
       }
-
-      const containerTitle =
-        document.querySelector(".container-title").textContent;
-      loadContent(containerTitle);
     });
   });
 }
