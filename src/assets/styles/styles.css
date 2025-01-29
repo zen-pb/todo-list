@@ -565,11 +565,6 @@ dialog hr {
     font-size: 14px;
 }
 
-.options-dropdown {
-    display: flex;
-    align-items: center;
-}
-
 .options-dropdown .dropdown-items {
     width: 100px;
 }
