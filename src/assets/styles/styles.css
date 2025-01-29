@@ -421,6 +421,7 @@ dialog hr {
     border-radius: .5rem;
     break-inside: avoid;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .note-card-titleDiv {
