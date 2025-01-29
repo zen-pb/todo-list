@@ -411,6 +411,7 @@ function resetTaskForm(
   containerContent.innerHTML = "";
   const todoContainer = loadTodos();
   containerContent.append(todoContainer, addTaskBTN);
+  todoCheckHandler();
   editHandler();
   deleteHandler(containerContent);
 }
@@ -515,6 +516,7 @@ function deleteHandler(containerContent) {
       if (containerTitle === "Inbox") {
         containerContent.innerHTML = "";
         addTaskRouteHandler(containerContent);
+        todoCheckHandler();
         editHandler();
         deleteHandler(containerContent);
       } else if (
@@ -522,6 +524,7 @@ function deleteHandler(containerContent) {
         containerTitle.startsWith("Notes")
       ) {
         loadContent(containerTitle);
+        todoCheckHandler();
         editHandler();
         deleteHandler(containerContent);
       }
