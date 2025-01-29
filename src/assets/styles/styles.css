@@ -488,7 +488,7 @@ dialog hr {
     cursor: pointer;
 }
 
-.unchecked,
+#checkBTN,
 .options {
     display: flex;
     align-items: center;
@@ -500,31 +500,43 @@ dialog hr {
     transition: all 0.3s ease;
 }
 
-.unchecked {
+#checkBTN {
     border: 1.75px solid #1e1e1e;
     border-radius: 50%;
     margin-right: 6px;
 }
 
-.unchecked img {
+#checkBTN img {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.unchecked:hover img {
+#checkBTN:hover img {
     opacity: 1;
 }
 
-.unchecked.high {
+#checkBTN.high {
     background-color: #FF3131;
 }
 
-.unchecked.medium {
+#checkBTN.medium {
     background-color: #FFD700;
 }
 
-.unchecked.low {
+#checkBTN.low {
     background-color: #FF6B35;
+}
+
+.checked img {
+    opacity: 1 !important;
+}
+
+.todo-div.checked {
+    text-decoration-line: line-through;
+}
+
+.todo-wrapper.checked {
+    opacity: .3;
 }
 
 .todo-div {
