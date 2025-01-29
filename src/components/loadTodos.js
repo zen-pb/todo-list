@@ -22,9 +22,10 @@ export default function loadTodos() {
 
       const checkBTN = document.createElement("button");
       checkBTN.classList.add(
-        "check",
+        "unchecked",
         todoInfo.priority !== "priority" ? todoInfo.priority : "none"
       );
+      checkBTN.id = "checkBTN";
 
       const img = document.createElement("img");
       img.src = checkSvg;
