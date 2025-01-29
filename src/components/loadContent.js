@@ -481,9 +481,9 @@ function editHandler() {
             dialog.remove();
 
             const content = document.getElementById("content");
-            const dialog = generateModal();
+            const dialogNew = generateModal();
 
-            content.appendChild(dialog);
+            content.appendChild(dialogNew);
 
             const containerTitle =
               document.querySelector(".container-title").textContent;
