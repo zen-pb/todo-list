@@ -1,14 +1,24 @@
 import Storage from "../classes/Storage";
+import closeSVG from "../assets/images/note-close.svg";
 
 export default function loadNotes() {
   const notes = Storage.getStorage("notes");
 
   const container = document.createElement("div");
-  container.classList.add("notes-container")
+  container.classList.add("notes-container");
 
   notes.reverse().forEach((note) => {
     const card = document.createElement("div");
     card.classList.add("note-card");
+
+    const closeBTN = document.createElement("button");
+    closeBTN.type = "button";
+    closeBTN.id = "close";
+
+    const img = document.createElement("img");
+    img.src = closeSVG;
+
+    closeBTN.append(img);
 
     const titleDiv = document.createElement("div");
     titleDiv.classList.add("note-card-titleDiv");
@@ -28,7 +38,7 @@ export default function loadNotes() {
 
     contentsDiv.append(content);
 
-    card.append(titleDiv, contentsDiv);
+    card.append(closeBTN, titleDiv, contentsDiv);
     container.appendChild(card);
   });
 
