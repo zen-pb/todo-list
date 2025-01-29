@@ -30,22 +30,37 @@ export default class Storage {
       if (storageName === "projects") {
         storedItem = this.getStorage(storageName) || [];
 
-        const projectName = data.projectName;
-        const project = storedItem.find((proj) => proj[projectName]);
-        delete data.projectName;
+        if (data.projectName) {
+          const projectName = data.projectName;
+          const project = storedItem.find((proj) => proj[projectName]);
+          delete data.projectName;
 
-        if (project) {
-          const listArray = project[projectName].list;
-          listArray.forEach((todo) => {
-            if (todo.id === data.id) {
-              Object.keys(data).forEach((key) => {
-                if (key in todo) {
-                  todo[key] = data[key];
-                }
-              });
-              return;
-            }
-          });
+          if (project) {
+            const listArray = project[projectName].list;
+            listArray.forEach((todo) => {
+              if (todo.id === data.id) {
+                Object.keys(data).forEach((key) => {
+                  if (key in todo) {
+                    todo[key] = data[key];
+                  }
+                });
+                return;
+              }
+            });
+          }
+        } else {
+          const currentProjectName = data.oldTitle;
+          const newProjectName = data.newTitle;
+
+          const targetIndex = storedItem.findIndex((proj) =>
+            proj.hasOwnProperty(currentProjectName)
+          );
+
+          if (targetIndex !== -1) {
+            const value = storedItem[targetIndex][currentProjectName];
+            delete storedItem[targetIndex][currentProjectName];
+            storedItem[targetIndex][newProjectName] = value;
+          }
         }
       }
     }
