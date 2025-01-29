@@ -512,6 +512,7 @@ dialog hr {
     border: 1.75px solid #1e1e1e;
     border-radius: 50%;
     margin-right: 6px;
+    margin-top: 8px;
 }
 
 #checkBTN img {
