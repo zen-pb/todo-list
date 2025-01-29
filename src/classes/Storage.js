@@ -36,13 +36,13 @@ export default class Storage {
 
         if (project) {
           const listArray = project[projectName].list;
-          console.log(listArray);
           listArray.forEach((todo) => {
             if (todo.id === data.id) {
-              todo.title = data.title;
-              todo.description = data.description;
-              todo.date = data.date;
-              todo.priority = data.priority;
+              Object.keys(data).forEach((key) => {
+                if (key in todo) {
+                  todo[key] = data[key];
+                }
+              });
               return;
             }
           });
