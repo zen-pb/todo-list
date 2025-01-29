@@ -567,35 +567,57 @@ function editHandler() {
 
 function deleteHandler() {
   const deleteBTNs = document.querySelectorAll("button#delete");
+  const closeBTNs = document.querySelectorAll("button#close");
 
-  deleteBTNs.forEach((deleteBTN) => {
-    deleteBTN.addEventListener("click", () => {
-      const todoWrapper = deleteBTN.closest(".todo-wrapper");
-      const projectDiv = deleteBTN.closest(".project-div");
+  if (deleteBTNs) {
+    deleteBTNs.forEach((deleteBTN) => {
+      deleteBTN.addEventListener("click", () => {
+        const todoWrapper = deleteBTN.closest(".todo-wrapper");
+        const projectDiv = deleteBTN.closest(".project-div");
 
-      if (todoWrapper) {
-        const todo = {
-          title: todoWrapper.querySelector(".todo-title-text").textContent,
-          projectName:
-            todoWrapper.querySelector(".todo-project-text").textContent,
-          id: todoWrapper.classList[1],
-        };
+        if (todoWrapper) {
+          const todo = {
+            projectName:
+              todoWrapper.querySelector(".todo-project-text").textContent,
+            id: todoWrapper.classList[1],
+          };
 
-        Storage.setStorage("projects", todo, "delete");
-      }
+          Storage.setStorage("projects", todo, "delete");
+        }
 
-      if (projectDiv) {
-        const project = projectDiv.querySelector(".project-name").textContent;
+        if (projectDiv) {
+          const project = projectDiv.classList[1];
 
-        Storage.setStorage("projects", project, "delete");
-      }
+          Storage.setStorage("projects", project, "delete");
+        }
 
-      const containerTitle =
-        document.querySelector(".container-title").textContent;
+        const containerTitle =
+          document.querySelector(".container-title").textContent;
 
-      loadContent(containerTitle);
+        loadContent(containerTitle);
+      });
     });
-  });
+  }
+
+  if (closeBTNs) {
+    closeBTNs.forEach((closeBTN) => {
+      closeBTN.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const noteCard = closeBTN.closest(".note-card");
+
+        if (noteCard) {
+          const note = noteCard.classList[1];
+
+          Storage.setStorage("notes", note, "delete");
+
+          const containerTitle =
+            document.querySelector(".container-title").textContent;
+
+          loadContent(containerTitle);
+        }
+      });
+    });
+  }
 }
 
 function addTaskEventListeners(form) {
