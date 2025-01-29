@@ -13,6 +13,7 @@ export default function editProject(projectDiv) {
   projectFormTitle.textContent = "Edit project";
   const projectFormName = editProjectForm.querySelector("input");
   projectFormName.value = projectName;
+  projectFormName.name = "newTitle";
   const projectFormSave = editProjectForm.querySelector("button#add");
   projectFormSave.textContent = "Save";
   projectFormSave.id = "save";
