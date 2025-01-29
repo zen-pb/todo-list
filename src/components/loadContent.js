@@ -18,6 +18,7 @@ import loadProjects from "./loadProjects";
 import loadTodos from "./loadTodos";
 import editTask from "./editTask";
 import editProject from "./editProject";
+import editNote from "./editNote";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -440,62 +441,109 @@ function todoCheckHandler() {
 
 function editHandler() {
   const editBTNs = document.querySelectorAll("button#edit");
+  const noteCards = document.querySelectorAll(".note-card");
 
-  editBTNs.forEach((editBTN) => {
-    editBTN.addEventListener("click", () => {
-      const todoWrapper = editBTN.closest(".todo-wrapper");
-      const projectDiv = editBTN.closest(".project-div");
+  if (editBTNs) {
+    editBTNs.forEach((editBTN) => {
+      editBTN.addEventListener("click", () => {
+        const todoWrapper = editBTN.closest(".todo-wrapper");
+        const projectDiv = editBTN.closest(".project-div");
 
-      if (todoWrapper) {
-        const dialog = document.querySelector("dialog");
-        dialog.innerHTML = "";
-        dialog.className = "edit-task-dialog";
-        dialog.append(editTask(todoWrapper));
-        dialog.showModal();
+        if (todoWrapper) {
+          const dialog = document.querySelector("dialog");
+          dialog.innerHTML = "";
+          dialog.className = "edit-task-dialog";
+          dialog.append(editTask(todoWrapper));
+          dialog.showModal();
 
-        const form = dialog.querySelector("form");
-        addTaskEventListeners(form);
+          const form = dialog.querySelector("form");
+          addTaskEventListeners(form);
 
-        const priorityBTN = form.querySelector("button#priority");
-        const storageBTN = form.querySelector("button#storage");
-        const cancelBTN = form.querySelector("button#cancel");
+          const priorityBTN = form.querySelector("button#priority");
+          const storageBTN = form.querySelector("button#storage");
+          const cancelBTN = form.querySelector("button#cancel");
 
-        cancelBTN.addEventListener("click", () => {
-          dialog.close();
-        });
+          cancelBTN.addEventListener("click", () => {
+            dialog.close();
+          });
 
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
+          form.addEventListener("submit", (e) => {
+            e.preventDefault();
 
-          const formData = new FormData(form);
-          const dataObject = Object.fromEntries(formData);
-          dataObject.priority = priorityBTN.textContent.toLowerCase();
-          dataObject.projectName = storageBTN.textContent;
-          dataObject.id = form.classList[1];
+            const formData = new FormData(form);
+            const dataObject = Object.fromEntries(formData);
+            dataObject.priority = priorityBTN.textContent.toLowerCase();
+            dataObject.projectName = storageBTN.textContent;
+            dataObject.id = form.classList[1];
 
-          Storage.setStorage("projects", dataObject, "update");
+            Storage.setStorage("projects", dataObject, "update");
 
-          dialog.remove();
+            dialog.remove();
 
-          const content = document.getElementById("content");
-          const dialog = generateModal();
+            const content = document.getElementById("content");
+            const dialog = generateModal();
 
-          content.appendChild(dialog);
+            content.appendChild(dialog);
 
-          const containerTitle =
-            document.querySelector(".container-title").textContent;
-          loadContent(containerTitle);
-        });
-      }
+            const containerTitle =
+              document.querySelector(".container-title").textContent;
+            loadContent(containerTitle);
+          });
+        }
 
-      if (projectDiv) {
+        if (projectDiv) {
+          const dialog = document.querySelector("dialog");
+          dialog.innerHTML = "";
+          dialog.className = "edit-project-dialog";
+          dialog.append(editProject(projectDiv));
+          dialog.showModal();
+
+          const form = dialog.querySelector("form");
+
+          const cancelBTN = form.querySelector("button#cancel");
+
+          cancelBTN.addEventListener("click", () => {
+            dialog.close();
+          });
+
+          form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const dataObject = Object.fromEntries(formData);
+            dataObject.id = form.classList[1];
+            dataObject.oldTitle =
+              projectDiv.querySelector(".project-name").textContent;
+
+            Storage.setStorage("projects", dataObject, "update");
+
+            dialog.close();
+
+            const containerTitle =
+              document.querySelector(".container-title").textContent;
+            loadContent(containerTitle);
+          });
+        }
+      });
+    });
+  }
+
+  if (noteCards) {
+    noteCards.forEach((noteCard) => {
+      noteCard.addEventListener("click", () => {
         const dialog = document.querySelector("dialog");
         dialog.innerHTML = "";
         dialog.className = "edit-project-dialog";
-        dialog.append(editProject(projectDiv));
+        dialog.append(editNote(noteCard));
         dialog.showModal();
 
         const form = dialog.querySelector("form");
+
+        const closeBTN = form.querySelector("button#close");
+
+        closeBTN.addEventListener("click", () => {
+          dialog.close();
+        });
 
         form.addEventListener("submit", (e) => {
           e.preventDefault();
@@ -503,10 +551,8 @@ function editHandler() {
           const formData = new FormData(form);
           const dataObject = Object.fromEntries(formData);
           dataObject.id = form.classList[1];
-          dataObject.oldTitle =
-            projectDiv.querySelector(".project-name").textContent;
 
-          Storage.setStorage("projects", dataObject, "update");
+          Storage.setStorage("notes", dataObject, "update");
 
           dialog.close();
 
@@ -514,9 +560,9 @@ function editHandler() {
             document.querySelector(".container-title").textContent;
           loadContent(containerTitle);
         });
-      }
+      });
     });
-  });
+  }
 }
 
 function deleteHandler() {
