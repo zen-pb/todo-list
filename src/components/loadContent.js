@@ -474,10 +474,6 @@ function editHandler() {
           Storage.setStorage("projects", dataObject, "update");
 
           dialog.close();
-
-          const containerTitle =
-            document.querySelector(".container-title").textContent;
-          loadContent(containerTitle);
         });
       }
 
@@ -502,50 +498,45 @@ function editHandler() {
           Storage.setStorage("projects", dataObject, "update");
 
           dialog.close();
-
-          const containerTitle =
-            document.querySelector(".container-title").textContent;
-          loadContent(containerTitle);
         });
       }
+
+      const containerTitle =
+        document.querySelector(".container-title").textContent;
+      loadContent(containerTitle);
     });
   });
 }
 
-function deleteHandler(containerContent) {
+function deleteHandler() {
   const deleteBTNs = document.querySelectorAll("button#delete");
 
   deleteBTNs.forEach((deleteBTN) => {
     deleteBTN.addEventListener("click", () => {
       const todoWrapper = deleteBTN.closest(".todo-wrapper");
+      const projectDiv = deleteBTN.closest(".project-div");
 
-      const todo = {
-        title: todoWrapper.querySelector(".todo-title-text").textContent,
-        projectName:
-          todoWrapper.querySelector(".todo-project-text").textContent,
-        id: todoWrapper.classList[1],
-      };
+      if (todoWrapper) {
+        const todo = {
+          title: todoWrapper.querySelector(".todo-title-text").textContent,
+          projectName:
+            todoWrapper.querySelector(".todo-project-text").textContent,
+          id: todoWrapper.classList[1],
+        };
 
-      Storage.setStorage("projects", todo, "delete");
+        Storage.setStorage("projects", todo, "delete");
+      }
+
+      if (projectDiv) {
+        const project = projectDiv.querySelector(".project-name").textContent;
+
+        Storage.setStorage("projects", project, "delete");
+      }
 
       const containerTitle =
         document.querySelector(".container-title").textContent;
 
-      if (containerTitle === "Inbox") {
-        containerContent.innerHTML = "";
-        addTaskRouteHandler(containerContent);
-        todoCheckHandler();
-        editHandler();
-        deleteHandler(containerContent);
-      } else if (
-        containerTitle.startsWith("Projects") ||
-        containerTitle.startsWith("Notes")
-      ) {
-        loadContent(containerTitle);
-        todoCheckHandler();
-        editHandler();
-        deleteHandler(containerContent);
-      }
+      loadContent(containerTitle);
     });
   });
 }
