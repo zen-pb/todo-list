@@ -1,6 +1,7 @@
 import Storage from "../classes/Storage";
 import Button from "./Button";
 import projectSvg from "../assets/images/projects-dropdown.svg";
+import Options from "./Options";
 
 export default function loadProjects() {
   const projects = Storage.getStorage("projects");
@@ -17,7 +18,9 @@ export default function loadProjects() {
 
       const title = Button(key, projectSvg);
 
-      projectDiv.append(title);
+      const optionsDiv = Options();
+
+      projectDiv.append(title, optionsDiv);
       container.append(projectDiv);
     }
   });
