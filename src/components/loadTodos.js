@@ -16,6 +16,8 @@ export default function loadTodos() {
     childContainer.classList.add("todo-child-container");
 
     todoItem.list.forEach((todoInfo) => {
+      const checked = todoInfo.checked ? "checked" : "";
+
       const todoWrapper = document.createElement("div");
       todoWrapper.classList.add("todo-wrapper");
       todoWrapper.classList.add(`${todoInfo.id}`);
@@ -63,6 +65,12 @@ export default function loadTodos() {
       const projectName = document.createElement("p");
       projectName.textContent = key;
       projectName.classList.add("todo-project-text");
+
+      if (checked !== "") {
+        todoWrapper.classList.add(`${checked}`);
+        checkBTN.classList.add(`${checked}`);
+        todoDiv.classList.add(`${checked}`);
+      }
 
       todoTextDiv.append(title, description);
       todoOtherObj.append(dueDate, projectName);
