@@ -2,6 +2,7 @@ export default class Notes {
   constructor(title, content = "") {
     this.title = title;
     this.content = content;
+    id: crypto.randomUUID;
   }
 
   setTitle(title) {
