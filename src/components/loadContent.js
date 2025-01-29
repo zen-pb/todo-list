@@ -17,6 +17,7 @@ import loadNotes from "./loadNotes";
 import loadProjects from "./loadProjects";
 import loadTodos from "./loadTodos";
 import editTask from "./editTask";
+import editProject from "./editProject";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -441,40 +442,72 @@ function editHandler() {
   editBTNs.forEach((editBTN) => {
     editBTN.addEventListener("click", () => {
       const todoWrapper = editBTN.closest(".todo-wrapper");
-      const dialog = document.querySelector("dialog");
-      dialog.innerHTML = "";
-      dialog.className = "edit-task-dialog";
-      dialog.append(editTask(todoWrapper));
-      dialog.showModal();
+      const projectDiv = editBTN.closest(".project-div");
 
-      const form = dialog.querySelector("form");
-      addTaskEventListeners(form);
+      if (todoWrapper) {
+        const dialog = document.querySelector("dialog");
+        dialog.innerHTML = "";
+        dialog.className = "edit-task-dialog";
+        dialog.append(editTask(todoWrapper));
+        dialog.showModal();
 
-      const priorityBTN = form.querySelector("button#priority");
-      const storageBTN = form.querySelector("button#storage");
-      const cancelBTN = form.querySelector("button#cancel");
+        const form = dialog.querySelector("form");
+        addTaskEventListeners(form);
 
-      cancelBTN.addEventListener("click", () => {
-        dialog.close();
-      });
+        const priorityBTN = form.querySelector("button#priority");
+        const storageBTN = form.querySelector("button#storage");
+        const cancelBTN = form.querySelector("button#cancel");
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
+        cancelBTN.addEventListener("click", () => {
+          dialog.close();
+        });
 
-        const formData = new FormData(form);
-        const dataObject = Object.fromEntries(formData);
-        dataObject.priority = priorityBTN.textContent.toLowerCase();
-        dataObject.projectName = storageBTN.textContent;
-        dataObject.id = form.classList[1];
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
 
-        Storage.setStorage("projects", dataObject, "update");
+          const formData = new FormData(form);
+          const dataObject = Object.fromEntries(formData);
+          dataObject.priority = priorityBTN.textContent.toLowerCase();
+          dataObject.projectName = storageBTN.textContent;
+          dataObject.id = form.classList[1];
 
-        dialog.close();
+          Storage.setStorage("projects", dataObject, "update");
 
-        const containerTitle =
-          document.querySelector(".container-title").textContent;
-        loadContent(containerTitle);
-      });
+          dialog.close();
+
+          const containerTitle =
+            document.querySelector(".container-title").textContent;
+          loadContent(containerTitle);
+        });
+      }
+
+      if (projectDiv) {
+        const dialog = document.querySelector("dialog");
+        dialog.innerHTML = "";
+        dialog.className = "edit-project-dialog";
+        dialog.append(editProject(projectDiv));
+        dialog.showModal();
+
+        const form = dialog.querySelector("form");
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const formData = new FormData(form);
+          const dataObject = Object.fromEntries(formData);
+          dataObject.id = form.classList[1];
+          dataObject.oldTitle =
+            projectDiv.querySelector(".project-name").textContent;
+
+          Storage.setStorage("projects", dataObject, "update");
+
+          dialog.close();
+
+          const containerTitle =
+            document.querySelector(".container-title").textContent;
+          loadContent(containerTitle);
+        });
+      }
     });
   });
 }
