@@ -709,8 +709,7 @@ function showTodosInProject() {
 
   projectDivs.forEach((projectDiv) => {
     projectDiv.addEventListener("click", () => {
-      const dialog = document.querySelector("dialog");
-      dialog.innerHTML = "";
+      const dialog = document.createElement("dialog");
       dialog.className = "project-todos-dialog";
 
       const projectName = projectDiv.textContent;
@@ -721,6 +720,7 @@ function showTodosInProject() {
 
       addTaskRouteHandler(containerContent, projectName);
 
+      document.getElementById("content").appendChild(dialog);
       dialog.showModal();
       todoCheckHandler();
       dropdownEventListeners(containerContent);
