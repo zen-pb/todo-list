@@ -146,6 +146,9 @@ function addTaskRouteHandler(containerContent, projectName = "Inbox") {
   const todoContainer = loadTodos(projectName);
 
   containerContent.append(todoContainer, addTaskBTN);
+  todoCheckHandler();
+  editHandler();
+  deleteHandler(containerContent);
 }
 
 function addProjectRouteHandler(containerContent) {
@@ -572,7 +575,7 @@ function editHandler() {
   }
 }
 
-function deleteHandler() {
+function deleteHandler(containerContent) {
   const deleteBTNs = document.querySelectorAll("button#delete");
   const closeBTNs = document.querySelectorAll("button#close");
 
@@ -581,8 +584,11 @@ function deleteHandler() {
       deleteBTN.addEventListener("click", () => {
         const todoWrapper = deleteBTN.closest(".todo-wrapper");
         const projectDiv = deleteBTN.closest(".project-div");
+        let projectName;
 
         if (todoWrapper) {
+          projectName =
+            todoWrapper.querySelector(".todo-project-text").textContent;
           const todo = {
             projectName:
               todoWrapper.querySelector(".todo-project-text").textContent,
@@ -593,15 +599,15 @@ function deleteHandler() {
         }
 
         if (projectDiv) {
+          projectName = projectDiv.querySelector(".project-name").textContent;
           const project = projectDiv.classList[1];
 
           Storage.setStorage("projects", project, "delete");
         }
 
-        const containerTitle =
-          document.querySelector(".container-title").textContent;
-
-        loadContent(containerTitle);
+        containerContent.innerHTML = "";
+        dropdownEventListeners(containerContent);
+        addTaskRouteHandler(containerContent, projectName);
       });
     });
   }
@@ -700,7 +706,7 @@ function dropdownEventListeners(containerContent) {
 }
 
 function showTodosInProject() {
-  const projectDivs = document.querySelectorAll(".project-div");
+  const projectDivs = document.querySelectorAll(".project-name");
 
   projectDivs.forEach((projectDiv) => {
     projectDiv.addEventListener("click", () => {
@@ -708,7 +714,7 @@ function showTodosInProject() {
       dialog.innerHTML = "";
       dialog.className = "project-todos-dialog";
 
-      const projectName = projectDiv.querySelector(".project-name").textContent;
+      const projectName = projectDiv.textContent;
 
       dialog.append(todoProjectModal(projectDiv));
 
