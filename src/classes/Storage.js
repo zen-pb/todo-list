@@ -96,7 +96,7 @@ export default class Storage {
           }
         } else {
           const index = storedItem.findIndex((proj) =>
-            proj.hasOwnProperty(data)
+            Object.values(proj).some((property) => property.id === data)
           );
 
           if (index !== -1) {
