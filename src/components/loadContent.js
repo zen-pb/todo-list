@@ -19,6 +19,7 @@ import loadTodos from "./loadTodos";
 import editTask from "./editTask";
 import editProject from "./editProject";
 import editNote from "./editNote";
+import todoProjectModal from "./todoProjectModal";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -73,6 +74,7 @@ export default function loadContent(name = "Inbox") {
 
   if (containerTitle.textContent === "Projects") {
     dropdownEventListeners(containerContent);
+    showTodosInProject();
   }
 
   if (containerTitle.textContent === "Notes") {
@@ -690,5 +692,27 @@ function dropdownEventListeners(containerContent) {
         dd.classList.remove("show");
       });
     }
+  });
+}
+
+function showTodosInProject() {
+  const projectDivs = document.querySelectorAll(".project-div");
+
+  projectDivs.forEach((projectDiv) => {
+    projectDiv.addEventListener("click", () => {
+      const dialog = document.querySelector("dialog");
+      dialog.innerHTML = "";
+      dialog.className = "project-todos-dialog";
+
+      const projectName = projectDiv.querySelector(".project-name").textContent;
+
+      dialog.append(todoProjectModal(projectDiv, projectName));
+
+      const containerContent = dialog.querySelector(".container-content");
+
+      addTaskRouteHandler(containerContent, projectName);
+
+      dialog.showModal();
+    });
   });
 }
