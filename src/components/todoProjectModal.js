@@ -3,8 +3,7 @@ export default function todoProjectModal(projectDiv) {
 
   const containerTitle = document.createElement("h1");
   containerTitle.classList.add("container-title");
-  containerTitle.textContent =
-    projectDiv.querySelector(".project-name").textContent;
+  containerTitle.textContent = projectDiv.textContent;
 
   const containerContent = document.createElement("div");
   containerContent.classList.add("container-content");
