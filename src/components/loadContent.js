@@ -10,7 +10,6 @@ import Project from "../classes/Projects";
 import prioritySvg from "../assets/images/priority.svg";
 import dueDateSvg from "../assets/images/due-date.svg";
 import dropdownSvg from "../assets/images/dropdown.svg";
-import inboxSvg from "../assets/images/inbox-dropdown.svg";
 import storageList from "./storageList";
 import Dropdown from "./Dropdown";
 import loadNotes from "./loadNotes";
@@ -405,7 +404,7 @@ function resetTaskForm(
   taskForm.reset();
   dueDateBTN.innerHTML = Button("Due date", dueDateSvg).innerHTML;
   priorityBTN.innerHTML = Button("Priority", prioritySvg).innerHTML;
-  storageBTN.innerHTML = Button("Inbox", inboxSvg).innerHTML;
+  storageBTN.innerHTML = Button(projectName).innerHTML;
   addDropdownSvg(storageBTN);
   containerContent.innerHTML = "";
   const todoContainer = loadTodos(projectName);
