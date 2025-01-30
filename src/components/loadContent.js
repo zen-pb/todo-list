@@ -713,6 +713,10 @@ function showTodosInProject() {
       addTaskRouteHandler(containerContent, projectName);
 
       dialog.showModal();
+      todoCheckHandler();
+      dropdownEventListeners(containerContent);
+      editHandler();
+      deleteHandler(containerContent);
     });
   });
 }
