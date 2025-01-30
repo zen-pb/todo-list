@@ -212,6 +212,7 @@ function addNoteRouteHandler(containerContent) {
 
     const noteContainer = loadNotes();
     document.getElementById("content").appendChild(noteContainer);
+    editHandler();
   });
 
   containerContent.append(addNoteBTN);
