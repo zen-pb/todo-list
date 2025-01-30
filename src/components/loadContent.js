@@ -87,13 +87,14 @@ export default function loadContent(name = "Inbox") {
   deleteHandler(containerContent);
 }
 
-function addTaskRouteHandler(containerContent) {
+function addTaskRouteHandler(containerContent, projectName = "Inbox") {
   const addTaskBTN = Button("Add task", addSvg);
 
   const taskForm = generateTaskForm();
   const dueDateBTN = taskForm.querySelector("button#due-date");
   const priorityBTN = taskForm.querySelector("button#priority");
   const storageBTN = taskForm.querySelector("button#storage");
+  storageBTN.textContent = projectName;
 
   const cancelBTN = taskForm.querySelector("button#cancel");
 
@@ -119,13 +120,14 @@ function addTaskRouteHandler(containerContent) {
       priorityBTN,
       storageBTN,
       containerContent,
-      addTaskBTN
+      addTaskBTN,
+      projectName
     );
   });
 
   addTaskBTN.addEventListener("click", () => {
     containerContent.innerHTML = "";
-    const todoContainer = loadTodos();
+    const todoContainer = loadTodos(projectName);
     containerContent.append(todoContainer, taskForm);
   });
 
@@ -136,11 +138,12 @@ function addTaskRouteHandler(containerContent) {
       priorityBTN,
       storageBTN,
       containerContent,
-      addTaskBTN
+      addTaskBTN,
+      projectName
     );
   });
 
-  const todoContainer = loadTodos();
+  const todoContainer = loadTodos(projectName);
 
   containerContent.append(todoContainer, addTaskBTN);
 }
@@ -393,7 +396,8 @@ function resetTaskForm(
   priorityBTN,
   storageBTN,
   containerContent,
-  addTaskBTN
+  addTaskBTN,
+  projectName
 ) {
   taskForm.reset();
   dueDateBTN.innerHTML = Button("Due date", dueDateSvg).innerHTML;
@@ -401,7 +405,7 @@ function resetTaskForm(
   storageBTN.innerHTML = Button("Inbox", inboxSvg).innerHTML;
   addDropdownSvg(storageBTN);
   containerContent.innerHTML = "";
-  const todoContainer = loadTodos();
+  const todoContainer = loadTodos(projectName);
   containerContent.append(todoContainer, addTaskBTN);
   todoCheckHandler();
   editHandler();
@@ -706,7 +710,7 @@ function showTodosInProject() {
 
       const projectName = projectDiv.querySelector(".project-name").textContent;
 
-      dialog.append(todoProjectModal(projectDiv, projectName));
+      dialog.append(todoProjectModal(projectDiv));
 
       const containerContent = dialog.querySelector(".container-content");
 
