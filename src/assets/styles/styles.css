@@ -583,3 +583,12 @@ dialog hr {
 .options-dropdown .dropdown-items {
     width: 100px;
 }
+
+.project-todos-dialog {
+    width: 1000px;
+    min-height: 750px;
+}
+
+.project-todos-dialog[open] {
+    top: 50%;
+}
