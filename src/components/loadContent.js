@@ -716,6 +716,20 @@ function showTodosInProject() {
 
       dialog.append(todoProjectModal(projectDiv));
 
+      dialog.addEventListener("click", (e) => {
+        if (e.target.closest("form")) return;
+
+        const dialogDimensions = dialog.getBoundingClientRect();
+        if (
+          e.clientX < dialogDimensions.left ||
+          e.clientX > dialogDimensions.right ||
+          e.clientY < dialogDimensions.top ||
+          e.clientY > dialogDimensions.bottom
+        ) {
+          dialog.close();
+        }
+      });
+
       const containerContent = dialog.querySelector(".container-content");
 
       addTaskRouteHandler(containerContent, projectName);
