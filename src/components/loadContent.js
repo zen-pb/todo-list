@@ -440,6 +440,7 @@ function resetTaskForm(
   const todoContainer = loadTodos(projectName);
   containerContent.append(todoContainer, addTaskBTN);
   todoCheckHandler();
+  dropdownEventListeners(containerContent);
   editHandler(containerContent);
   deleteHandler(containerContent);
 }
@@ -734,30 +735,32 @@ function addTaskEventListeners(form) {
 }
 
 function dropdownEventListeners(containerContent) {
-  const optionsDropdown =
-    containerContent?.querySelector(".options-dropdown") || "";
+  const optionsDropdowns =
+    containerContent?.querySelectorAll(".options-dropdown") || "";
 
-  if (!optionsDropdown) return;
+  if (!optionsDropdowns) return;
 
-  optionsDropdown.addEventListener("click", (e) => {
-    const optionsButton = e.target.closest("#options");
-    const dropdownButton = e.target.closest(".dropdown-button");
+  optionsDropdowns.forEach((optionsDropdown) => {
+    optionsDropdown.addEventListener("click", (e) => {
+      const optionsButton = e.target.closest("#options");
+      const dropdownButton = e.target.closest(".dropdown-button");
 
-    if (optionsButton) {
-      const wrapper = optionsButton.closest("div");
-      const dropdown = wrapper.querySelector(".dropdown-items");
+      if (optionsButton) {
+        const wrapper = optionsButton.closest("div");
+        const dropdown = wrapper.querySelector(".dropdown-items");
 
-      document.querySelectorAll(".dropdown-items.show").forEach((dd) => {
-        if (dd !== dropdown) dd.classList.remove("show");
-      });
-      dropdown.classList.toggle("show");
-    }
+        document.querySelectorAll(".dropdown-items.show").forEach((dd) => {
+          if (dd !== dropdown) dd.classList.remove("show");
+        });
+        dropdown.classList.toggle("show");
+      }
 
-    if (!dropdownButton) {
-      document.querySelectorAll(".dropdown-items.show").forEach((dd) => {
-        dd.classList.remove("show");
-      });
-    }
+      if (!dropdownButton) {
+        document.querySelectorAll(".dropdown-items.show").forEach((dd) => {
+          dd.classList.remove("show");
+        });
+      }
+    });
   });
 }
 
