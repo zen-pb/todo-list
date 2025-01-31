@@ -23,8 +23,9 @@ import projectSvg from "../assets/images/projects-dropdown.svg";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
-
   content.innerHTML = "";
+
+  const dialog = document.createElement("dialog");
 
   loadData();
 
@@ -64,7 +65,7 @@ export default function loadContent(name = "Inbox") {
   );
 
   container.append(containerTitle, containerContent);
-  content.append(container);
+  content.append(container, dialog);
 
   if (containerTitle.textContent === "Inbox") {
     dropdownEventListeners(containerContent);
@@ -93,6 +94,13 @@ function addTaskRouteHandler(containerContent, projectName = "Inbox") {
   const dueDateBTN = taskForm.querySelector("button#due-date");
   const priorityBTN = taskForm.querySelector("button#priority");
   const storageBTN = taskForm.querySelector("button#storage");
+
+  if (projectName !== "Inbox") {
+    const spanImg = document.createElement("img");
+    spanImg.src = projectSvg;
+    storageBTN.childNodes[0].innerHTML = "";
+    storageBTN.childNodes[0].append(spanImg);
+  }
   storageBTN.childNodes[1].textContent = projectName;
 
   const cancelBTN = taskForm.querySelector("button#cancel");
@@ -288,7 +296,15 @@ function addDropdownSvg(storageBTN) {
 }
 
 function generateModal(containerContent) {
-  const projectDialog = generateNewProjectModal();
+  const dialog = generateNewProjectModal();
+  const dialogForm = dialog.querySelector("form");
+  const projectDialog = document.querySelector("dialog");
+  projectDialog.innerHTML = "";
+  projectDialog.className = "project-dialog";
+  projectDialog.append(dialogForm);
+
+  console.log(projectDialog);
+
   const closeBTN = projectDialog.querySelector("button#close");
 
   const projectForm = projectDialog.querySelector("form");
@@ -347,6 +363,7 @@ function generateModal(containerContent) {
       const storageBTN = document.querySelector("#storage");
       const spanImg = document.createElement("img");
       spanImg.src = projectSvg;
+      storageBTN.childNodes[0].innerHTML = "";
       storageBTN.childNodes[0].append(spanImg);
       storageBTN.childNodes[1].textContent = dataObject.title;
     }
