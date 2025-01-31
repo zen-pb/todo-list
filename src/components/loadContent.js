@@ -217,6 +217,7 @@ function addNoteRouteHandler(containerContent) {
     const noteContainer = loadNotes();
     document.getElementById("content").appendChild(noteContainer);
     editHandler(noteContainer);
+    deleteHandler(containerContent);
   });
 
   containerContent.append(addNoteBTN);
@@ -592,6 +593,7 @@ function deleteHandler(containerContent) {
           Storage.setStorage("projects", todo, "delete");
           containerContent.innerHTML = "";
           addTaskRouteHandler(containerContent, projectName);
+          deleteHandler(containerContent);
         }
 
         if (projectDiv) {
@@ -601,6 +603,7 @@ function deleteHandler(containerContent) {
           Storage.setStorage("projects", project, "delete");
           containerContent.innerHTML = "";
           addProjectRouteHandler(containerContent);
+          deleteHandler(containerContent);
         }
       });
     });
@@ -625,6 +628,7 @@ function deleteHandler(containerContent) {
 
           const noteContainer = loadNotes();
           document.getElementById("content").appendChild(noteContainer);
+          deleteHandler(containerContent);
         }
       });
     });
