@@ -136,6 +136,10 @@ function addTaskRouteHandler(containerContent, projectName = "Inbox") {
     containerContent.innerHTML = "";
     const todoContainer = loadTodos(projectName);
     containerContent.append(todoContainer, taskForm);
+    todoCheckHandler();
+    dropdownEventListeners(containerContent);
+    editHandler(containerContent);
+    deleteHandler(containerContent);
   });
 
   cancelBTN.addEventListener("click", () => {
