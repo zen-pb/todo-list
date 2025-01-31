@@ -21,6 +21,9 @@ export default function loadNotes() {
 
     closeBTN.append(img);
 
+    const noteDiv = document.createElement("div");
+    noteDiv.classList.add("note-div");
+
     const titleDiv = document.createElement("div");
     titleDiv.classList.add("note-card-titleDiv");
 
@@ -39,7 +42,8 @@ export default function loadNotes() {
 
     contentsDiv.append(content);
 
-    card.append(closeBTN, titleDiv, contentsDiv);
+    noteDiv.append(titleDiv, contentsDiv);
+    card.append(closeBTN, noteDiv);
     container.appendChild(card);
   });
 
