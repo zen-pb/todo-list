@@ -10,7 +10,6 @@ export default function loadNotes() {
   notes.reverse().forEach((note) => {
     const card = document.createElement("div");
     card.classList.add("note-card");
-    card.classList.add(`${note.id}`);
 
     const closeBTN = document.createElement("button");
     closeBTN.type = "button";
@@ -23,6 +22,7 @@ export default function loadNotes() {
 
     const noteDiv = document.createElement("div");
     noteDiv.classList.add("note-div");
+    noteDiv.classList.add(`${note.id}`);
 
     const titleDiv = document.createElement("div");
     titleDiv.classList.add("note-card-titleDiv");
