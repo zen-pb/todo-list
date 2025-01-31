@@ -67,11 +67,17 @@ export default function loadContent(name = "Inbox") {
   container.append(containerTitle, containerContent);
   content.append(container, dialog);
 
+  if (containerTitle.textContent === "Inbox") {
+    dropdownEventListeners(containerContent);
+  }
+
   if (containerTitle.textContent === "Projects") {
+    dropdownEventListeners(containerContent);
     showTodosInProject();
   }
 
   if (containerTitle.textContent === "Notes") {
+    dropdownEventListeners(containerContent);
     const noteContainer = loadNotes();
     content.appendChild(noteContainer);
   }
@@ -82,7 +88,6 @@ export default function loadContent(name = "Inbox") {
 }
 
 function addTaskRouteHandler(containerContent, projectName = "Inbox") {
-  dropdownEventListeners(containerContent);
   const addTaskBTN = Button("Add task", addSvg);
 
   const taskForm = generateTaskForm();
@@ -337,11 +342,13 @@ function generateModal(containerContent) {
 
       const projectContainer = loadProjects();
       containerContent.append(projectContainer);
+      showTodosInProject();
     }
 
     refreshList();
     projectForm.reset();
     projectDialog.close();
+    dropdownEventListeners(containerContent);
     editHandler(containerContent);
     deleteHandler(containerContent);
   });
@@ -494,6 +501,9 @@ function editHandler(containerContent) {
 
             containerContent.innerHTML = "";
             addTaskRouteHandler(containerContent, storageBTN.textContent);
+            dropdownEventListeners(containerContent);
+            editHandler(containerContent);
+            deleteHandler(containerContent);
           });
         }
 
@@ -527,6 +537,9 @@ function editHandler(containerContent) {
 
             containerContent.innerHTML = "";
             addProjectRouteHandler(containerContent);
+            dropdownEventListeners(containerContent);
+            editHandler(containerContent);
+            deleteHandler(containerContent);
           });
         }
       });
@@ -561,9 +574,16 @@ function editHandler(containerContent) {
 
           dialog.close();
 
-          const containerTitle =
-            document.querySelector(".container-title").textContent;
-          loadContent(containerTitle);
+          const existingNoteContainer =
+            document.querySelector(".notes-container");
+          if (existingNoteContainer) {
+            existingNoteContainer.remove();
+          }
+
+          const noteContainer = loadNotes();
+          document.getElementById("content").appendChild(noteContainer);
+          editHandler(containerContent);
+          deleteHandler(containerContent);
         });
       });
     });
@@ -603,6 +623,8 @@ function deleteHandler(containerContent) {
           Storage.setStorage("projects", project, "delete");
           containerContent.innerHTML = "";
           addProjectRouteHandler(containerContent);
+          dropdownEventListeners(containerContent);
+          editHandler(containerContent);
           deleteHandler(containerContent);
         }
       });
@@ -628,6 +650,7 @@ function deleteHandler(containerContent) {
 
           const noteContainer = loadNotes();
           document.getElementById("content").appendChild(noteContainer);
+          editHandler(containerContent);
           deleteHandler(containerContent);
         }
       });
