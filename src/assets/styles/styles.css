@@ -592,3 +592,15 @@ dialog hr {
 .project-todos-dialog[open] {
     top: 50%;
 }
+
+.todo-due-date,
+.todo-project-text {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.todo-due-date img,
+.todo-project-text img {
+    padding: 3px 0;
+}
