@@ -49,7 +49,7 @@ export default function loadContent(name = "Inbox") {
     addNoteRouteHandler(containerContent);
   }
 
-  const dialog = generateModal();
+  const dialog = generateModal(containerContent);
 
   content.addEventListener(
     "click",
@@ -67,26 +67,18 @@ export default function loadContent(name = "Inbox") {
   container.append(containerTitle, containerContent);
   content.append(container, dialog);
 
-  if (containerTitle.textContent === "Inbox") {
-    dropdownEventListeners(containerContent);
-  }
-
-  if (containerTitle.textContent === "Projects") {
-    dropdownEventListeners(containerContent);
-    showTodosInProject();
-  }
-
   if (containerTitle.textContent === "Notes") {
     const noteContainer = loadNotes();
     content.appendChild(noteContainer);
   }
 
   todoCheckHandler();
-  editHandler();
+  editHandler(containerContent);
   deleteHandler(containerContent);
 }
 
 function addTaskRouteHandler(containerContent, projectName = "Inbox") {
+  dropdownEventListeners(containerContent);
   const addTaskBTN = Button("Add task", addSvg);
 
   const taskForm = generateTaskForm();
@@ -146,11 +138,13 @@ function addTaskRouteHandler(containerContent, projectName = "Inbox") {
 
   containerContent.append(todoContainer, addTaskBTN);
   todoCheckHandler();
-  editHandler();
+  editHandler(containerContent);
   deleteHandler(containerContent);
 }
 
 function addProjectRouteHandler(containerContent) {
+  dropdownEventListeners(containerContent);
+  showTodosInProject();
   const addProjectBTN = Button("Add project", addSvg);
 
   addProjectBTN.addEventListener("click", () => {
@@ -219,7 +213,7 @@ function addNoteRouteHandler(containerContent) {
 
     const noteContainer = loadNotes();
     document.getElementById("content").appendChild(noteContainer);
-    editHandler();
+    editHandler(noteContainer);
   });
 
   containerContent.append(addNoteBTN);
@@ -286,7 +280,7 @@ function addDropdownSvg(storageBTN) {
   storageBTN.appendChild(dropdown);
 }
 
-function generateModal() {
+function generateModal(containerContent) {
   const projectDialog = generateNewProjectModal();
   const closeBTN = projectDialog.querySelector("button#close");
 
@@ -338,14 +332,14 @@ function generateModal() {
       }
 
       const projectContainer = loadProjects();
-      document.querySelector(".container-content").append(projectContainer);
+      containerContent.append(projectContainer);
     }
 
     refreshList();
     projectForm.reset();
     projectDialog.close();
-    editHandler();
-    deleteHandler();
+    editHandler(containerContent);
+    deleteHandler(containerContent);
   });
 
   cancelBTN.addEventListener("click", () => {
@@ -410,7 +404,7 @@ function resetTaskForm(
   const todoContainer = loadTodos(projectName);
   containerContent.append(todoContainer, addTaskBTN);
   todoCheckHandler();
-  editHandler();
+  editHandler(containerContent);
   deleteHandler(containerContent);
 }
 
@@ -448,9 +442,9 @@ function todoCheckHandler() {
   });
 }
 
-function editHandler() {
+function editHandler(containerContent) {
   const editBTNs = document.querySelectorAll("button#edit");
-  const noteCards = document.querySelectorAll(".note-card");
+  const noteDivs = document.querySelectorAll(".note-div");
 
   if (editBTNs) {
     editBTNs.forEach((editBTN) => {
@@ -490,13 +484,12 @@ function editHandler() {
             dialog.remove();
 
             const content = document.getElementById("content");
-            const dialogNew = generateModal();
+            const dialogNew = generateModal(containerContent);
 
             content.appendChild(dialogNew);
 
-            const containerTitle =
-              document.querySelector(".container-title").textContent;
-            loadContent(containerTitle);
+            containerContent.innerHTML = "";
+            addTaskRouteHandler(containerContent, storageBTN.textContent);
           });
         }
 
@@ -528,22 +521,21 @@ function editHandler() {
 
             dialog.close();
 
-            const containerTitle =
-              document.querySelector(".container-title").textContent;
-            loadContent(containerTitle);
+            containerContent.innerHTML = "";
+            addProjectRouteHandler(containerContent);
           });
         }
       });
     });
   }
 
-  if (noteCards) {
-    noteCards.forEach((noteCard) => {
-      noteCard.addEventListener("click", () => {
+  if (noteDivs) {
+    noteDivs.forEach((noteDiv) => {
+      noteDiv.addEventListener("click", () => {
         const dialog = document.querySelector("dialog");
         dialog.innerHTML = "";
         dialog.className = "edit-project-dialog";
-        dialog.append(editNote(noteCard));
+        dialog.append(editNote(noteDiv));
         dialog.showModal();
 
         const form = dialog.querySelector("form");
@@ -605,7 +597,6 @@ function deleteHandler(containerContent) {
         }
 
         containerContent.innerHTML = "";
-        dropdownEventListeners(containerContent);
         addTaskRouteHandler(containerContent, projectName);
       });
     });
@@ -622,10 +613,14 @@ function deleteHandler(containerContent) {
 
           Storage.setStorage("notes", note, "delete");
 
-          const containerTitle =
-            document.querySelector(".container-title").textContent;
+          const existingNoteContainer =
+            document.querySelector(".notes-container");
+          if (existingNoteContainer) {
+            existingNoteContainer.remove();
+          }
 
-          loadContent(containerTitle);
+          const noteContainer = loadNotes();
+          document.getElementById("content").appendChild(noteContainer);
         }
       });
     });
@@ -738,7 +733,7 @@ function showTodosInProject() {
       dialog.showModal();
       todoCheckHandler();
       dropdownEventListeners(containerContent);
-      editHandler();
+      editHandler(containerContent);
       deleteHandler(containerContent);
     });
   });
