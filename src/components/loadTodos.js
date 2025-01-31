@@ -1,6 +1,7 @@
 import Storage from "../classes/Storage";
 import checkSvg from "../assets/images/check.svg";
 import Options from "./Options";
+import dueDateSvg from "../assets/images/due-date.svg";
 import { format, getYear } from "date-fns";
 
 export default function loadTodos(projectName = "Inbox") {
@@ -57,11 +58,16 @@ export default function loadTodos(projectName = "Inbox") {
         if (todoInfo.date !== "") {
           const date = new Date(todoInfo.date);
 
-          dueDate.textContent = date
-            .toString()
-            .includes(`${getYear(new Date())}`)
-            ? format(date, "dd MMM")
-            : format(date, "dd MMM yyyy");
+          const dateImg = document.createElement("img");
+          dateImg.src = dueDateSvg;
+
+          const dateText = document.createTextNode(
+            date.toString().includes(`${getYear(new Date())}`)
+              ? ` ${format(date, "dd MMM")}`
+              : ` ${format(date, "dd MMM yyyy")}`
+          );
+
+          dueDate.append(dateImg, dateText);
           dueDate.classList.add("todo-due-date");
         }
 
