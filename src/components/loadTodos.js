@@ -2,6 +2,8 @@ import Storage from "../classes/Storage";
 import checkSvg from "../assets/images/check.svg";
 import Options from "./Options";
 import dueDateSvg from "../assets/images/due-date.svg";
+import inboxSvg from "../assets/images/inbox-dropdown.svg";
+import projectSvg from "../assets/images/projects-dropdown.svg";
 import { format, getYear } from "date-fns";
 
 export default function loadTodos(projectName = "Inbox") {
@@ -72,7 +74,16 @@ export default function loadTodos(projectName = "Inbox") {
         }
 
         const projectName = document.createElement("p");
-        projectName.textContent = key;
+        const projectImg = document.createElement("img");
+        const projectText = key;
+
+        if (projectText === "Inbox") {
+          projectImg.src = inboxSvg;
+        } else {
+          projectImg.src = projectSvg;
+        }
+
+        projectName.append(projectImg, projectText);
         projectName.classList.add("todo-project-text");
 
         if (checked !== "") {
