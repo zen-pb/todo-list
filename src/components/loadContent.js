@@ -152,7 +152,6 @@ function addTaskRouteHandler(containerContent, projectName = "Inbox") {
 }
 
 function addProjectRouteHandler(containerContent) {
-  dropdownEventListeners(containerContent);
   const addProjectBTN = Button("Add project", addSvg);
 
   addProjectBTN.addEventListener("click", () => {
@@ -708,7 +707,11 @@ function addTaskEventListeners(form) {
 }
 
 function dropdownEventListeners(containerContent) {
-  containerContent.addEventListener("click", (e) => {
+  const optionsDropdown = containerContent.querySelector(".options-dropdown");
+
+  if (!optionsDropdown) return;
+
+  optionsDropdown.addEventListener("click", (e) => {
     const optionsButton = e.target.closest("#options");
     const dropdownButton = e.target.closest(".dropdown-button");
 
