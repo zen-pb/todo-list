@@ -19,6 +19,7 @@ import editTask from "./editTask";
 import editProject from "./editProject";
 import editNote from "./editNote";
 import todoProjectModal from "./todoProjectModal";
+import projectSvg from "../assets/images/projects-dropdown.svg";
 
 export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
@@ -49,8 +50,6 @@ export default function loadContent(name = "Inbox") {
     addNoteRouteHandler(containerContent);
   }
 
-  const dialog = generateModal(containerContent);
-
   content.addEventListener(
     "click",
     (e) => {
@@ -65,7 +64,7 @@ export default function loadContent(name = "Inbox") {
   );
 
   container.append(containerTitle, containerContent);
-  content.append(container, dialog);
+  content.append(container);
 
   if (containerTitle.textContent === "Inbox") {
     dropdownEventListeners(containerContent);
@@ -94,7 +93,7 @@ function addTaskRouteHandler(containerContent, projectName = "Inbox") {
   const dueDateBTN = taskForm.querySelector("button#due-date");
   const priorityBTN = taskForm.querySelector("button#priority");
   const storageBTN = taskForm.querySelector("button#storage");
-  storageBTN.textContent = projectName;
+  storageBTN.childNodes[1].textContent = projectName;
 
   const cancelBTN = taskForm.querySelector("button#cancel");
 
@@ -308,12 +307,14 @@ function generateModal(containerContent) {
     ) {
       projectForm.reset();
       projectDialog.close();
+      projectDialog.remove();
     }
   });
 
   closeBTN.addEventListener("click", () => {
     projectForm.reset();
     projectDialog.close();
+    projectDialog.remove();
   });
 
   projectForm.addEventListener("submit", (e) => {
@@ -342,11 +343,18 @@ function generateModal(containerContent) {
       const projectContainer = loadProjects();
       containerContent.append(projectContainer);
       showTodosInProject();
+    } else {
+      const storageBTN = document.querySelector("#storage");
+      const spanImg = document.createElement("img");
+      spanImg.src = projectSvg;
+      storageBTN.childNodes[0].append(spanImg);
+      storageBTN.childNodes[1].textContent = dataObject.title;
     }
 
     refreshList();
     projectForm.reset();
     projectDialog.close();
+    projectDialog.remove();
     dropdownEventListeners(containerContent);
     editHandler(containerContent);
     deleteHandler(containerContent);
@@ -354,6 +362,7 @@ function generateModal(containerContent) {
 
   cancelBTN.addEventListener("click", () => {
     projectDialog.close();
+    projectDialog.remove();
   });
 
   return projectDialog;
@@ -699,7 +708,8 @@ function addTaskEventListeners(form) {
         dropdown.src = dropdownSvg;
         storageBTN.appendChild(dropdown);
       } else {
-        const dialog = document.querySelector(".project-dialog");
+        const dialog = generateModal();
+        document.getElementById("content").appendChild(dialog);
         dialog.showModal();
       }
     });
@@ -707,7 +717,8 @@ function addTaskEventListeners(form) {
 }
 
 function dropdownEventListeners(containerContent) {
-  const optionsDropdown = containerContent.querySelector(".options-dropdown");
+  const optionsDropdown =
+    containerContent?.querySelector(".options-dropdown") || "";
 
   if (!optionsDropdown) return;
 
