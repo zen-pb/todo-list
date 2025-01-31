@@ -12,7 +12,7 @@ export default function editTask(todoWrapper) {
   const todoTitle = todoWrapper.querySelector(".todo-title-text").textContent;
   const todoDesc =
     todoWrapper.querySelector(".todo-desc-text").textContent || "";
-  const todoDueDate = todoWrapper.querySelector(".todo-due-date");
+  const todoDueDate = todoWrapper?.querySelector(".todo-due-date") || "";
   const todoPriority = todoWrapper.querySelector("button#checkBTN");
   const todoProject =
     todoWrapper.querySelector(".todo-project-text").textContent;
@@ -54,7 +54,7 @@ export default function editTask(todoWrapper) {
   const taskFormDate = editTaskForm.querySelector('input[type="date"]');
   const taskFormDateBTN = editTaskForm.querySelector("button#due-date");
 
-  if (todoDueDate.textContent !== "") {
+  if (todoDueDate !== "") {
     let formattedDate;
     if (!/\d{4}/.test(todoDueDate.textContent)) {
       formattedDate = `${todoDueDate.textContent} 2025`;
