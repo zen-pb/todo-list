@@ -25,8 +25,6 @@ export default function loadContent(name = "Inbox") {
   const content = document.getElementById("content");
   content.innerHTML = "";
 
-  const dialog = document.createElement("dialog");
-
   loadData();
 
   const container = document.createElement("div");
@@ -65,7 +63,7 @@ export default function loadContent(name = "Inbox") {
   );
 
   container.append(containerTitle, containerContent);
-  content.append(container, dialog);
+  content.append(container);
 
   if (containerTitle.textContent === "Inbox") {
     dropdownEventListeners(containerContent);
@@ -302,12 +300,11 @@ function addDropdownSvg(storageBTN) {
 function generateModal(containerContent) {
   const dialog = generateNewProjectModal();
   const dialogForm = dialog.querySelector("form");
-  const projectDialog = document.querySelector("dialog");
+  const projectDialog = document.createElement("dialog");
+
   projectDialog.innerHTML = "";
   projectDialog.className = "project-dialog";
   projectDialog.append(dialogForm);
-
-  console.log(projectDialog);
 
   const closeBTN = projectDialog.querySelector("button#close");
 
@@ -418,7 +415,7 @@ function refreshList() {
           newStorageBTN.innerHTML = button.innerHTML;
           addDropdownSvg(newStorageBTN);
         } else {
-          const dialog = document.querySelector(".project-dialog");
+          const dialog = document.querySelector("dialog");
           dialog.showModal();
         }
       });
@@ -487,6 +484,9 @@ function editHandler(containerContent) {
   const editBTNs = document.querySelectorAll("button#edit");
   const noteDivs = document.querySelectorAll(".note-div");
 
+  const modal = generateModal(containerContent);
+  document.getElementById("content").appendChild(modal);
+
   if (editBTNs) {
     editBTNs.forEach((editBTN) => {
       editBTN.addEventListener("click", () => {
@@ -508,7 +508,7 @@ function editHandler(containerContent) {
           const cancelBTN = form.querySelector("button#cancel");
 
           cancelBTN.addEventListener("click", () => {
-            dialog.close();
+            dialog.remove();
           });
 
           form.addEventListener("submit", (e) => {
@@ -523,11 +523,6 @@ function editHandler(containerContent) {
             Storage.setStorage("projects", dataObject, "update");
 
             dialog.remove();
-
-            const content = document.getElementById("content");
-            const dialogNew = generateModal(containerContent);
-
-            content.appendChild(dialogNew);
 
             containerContent.innerHTML = "";
             addTaskRouteHandler(containerContent, storageBTN.textContent);
@@ -549,7 +544,7 @@ function editHandler(containerContent) {
           const cancelBTN = form.querySelector("button#cancel");
 
           cancelBTN.addEventListener("click", () => {
-            dialog.close();
+            dialog.remove();
           });
 
           form.addEventListener("submit", (e) => {
@@ -563,7 +558,7 @@ function editHandler(containerContent) {
 
             Storage.setStorage("projects", dataObject, "update");
 
-            dialog.close();
+            dialog.remove();
 
             containerContent.innerHTML = "";
             addProjectRouteHandler(containerContent);
@@ -590,7 +585,7 @@ function editHandler(containerContent) {
         const closeBTN = form.querySelector("button#close");
 
         closeBTN.addEventListener("click", () => {
-          dialog.close();
+          dialog.remove();
         });
 
         form.addEventListener("submit", (e) => {
@@ -602,7 +597,7 @@ function editHandler(containerContent) {
 
           Storage.setStorage("notes", dataObject, "update");
 
-          dialog.close();
+          dialog.remove();
 
           const existingNoteContainer =
             document.querySelector(".notes-container");
@@ -730,7 +725,9 @@ function addTaskEventListeners(form) {
         dropdown.src = dropdownSvg;
         storageBTN.appendChild(dropdown);
       } else {
-        const dialog = generateModal();
+        const dialog = generateModal(
+          document.querySelector(".container-content")
+        );
         document.getElementById("content").appendChild(dialog);
         dialog.showModal();
       }
@@ -807,3 +804,5 @@ function showTodosInProject() {
     });
   });
 }
+
+
