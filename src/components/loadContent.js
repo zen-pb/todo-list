@@ -67,6 +67,10 @@ export default function loadContent(name = "Inbox") {
   container.append(containerTitle, containerContent);
   content.append(container, dialog);
 
+  if (containerTitle.textContent === "Projects") {
+    showTodosInProject();
+  }
+
   if (containerTitle.textContent === "Notes") {
     const noteContainer = loadNotes();
     content.appendChild(noteContainer);
@@ -144,7 +148,6 @@ function addTaskRouteHandler(containerContent, projectName = "Inbox") {
 
 function addProjectRouteHandler(containerContent) {
   dropdownEventListeners(containerContent);
-  showTodosInProject();
   const addProjectBTN = Button("Add project", addSvg);
 
   addProjectBTN.addEventListener("click", () => {
@@ -587,6 +590,8 @@ function deleteHandler(containerContent) {
           };
 
           Storage.setStorage("projects", todo, "delete");
+          containerContent.innerHTML = "";
+          addTaskRouteHandler(containerContent, projectName);
         }
 
         if (projectDiv) {
@@ -594,10 +599,9 @@ function deleteHandler(containerContent) {
           const project = projectDiv.classList[1];
 
           Storage.setStorage("projects", project, "delete");
+          containerContent.innerHTML = "";
+          addProjectRouteHandler(containerContent);
         }
-
-        containerContent.innerHTML = "";
-        addTaskRouteHandler(containerContent, projectName);
       });
     });
   }
