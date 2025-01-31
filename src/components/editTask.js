@@ -36,7 +36,7 @@ export default function editTask(todoWrapper) {
     } else {
       formattedDate = todoDueDate;
     }
-    taskFormDate.valueAsDate = new Date(formattedDate);
+    taskFormDate.value = format(new Date(formattedDate), "yyyy-MM-dd");
     taskFormDateBTN.textContent = taskFormDate.value
       .toString()
       .includes(`${getYear(new Date())}`)
